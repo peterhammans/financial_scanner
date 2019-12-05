@@ -1,0 +1,55 @@
+{
+  "parser": "@typescript-eslint/parser",
+  "extends": [
+    "airbnb-typescript",
+    "react-app",
+    "eslint:recommended",
+    "plugin:@typescript-eslint/recommended",
+    "prettier",
+    "prettier/@typescript-eslint"
+  ],
+  "rules": {
+    "@typescript-eslint/explicit-function-return-type": "off",
+    "@typescript-eslint/explicit-member-accessibility": "off",
+    "@typescript-eslint/no-explicit-any": "off",
+    "@typescript-eslint/no-empty-interface": "off",
+    "import/order": "off",
+    "import/no-unresolved": "off",
+    "import/named": "off",
+    "import/prefer-default-export": "off",
+    "react/jsx-filename-extension": "off",
+    "react/jsx-one-expression-per-line": "off",
+    "jsx-a11y/label-has-for": "off",
+    "import/no-cycle": "off",
+    "react/jsx-curly-brace-presence": "off",
+    "jsx-a11y/click-events-have-key-events": "off",
+    "import/no-useless-path-segments": "off",
+    "consistent-return": "off",
+    "no-shadow": "off",
+    "no-param-reassign": "off",
+    "no-underscore-dangle": "off",
+    "spaced-comment": "off",
+    "react/no-children-prop": "off",
+    "import/no-extraneous-dependencies": [
+      "error",
+      {
+        "devDependencies": [
+          "**/*.stories.{js,jsx,ts,tsx}",
+          "**/*.test.{js,jsx,ts,tsx}"
+        ]
+      }
+    ],
+    "react/require-default-props": 2,
+    "react/prefer-stateless-function": "off",
+    "react/jsx-wrap-multilines": "off",
+    "react/button-has-type": "off"
+  },
+  "globals": {
+    "shallow": "readonly",
+    "render": "readonly",
+    "mount": "readonly",
+    "shallowWithIntl": "readonly",
+    "mountWithIntl": "readonly",
+    "shallowWithIntlDive": "readonly"
+  }
+}
