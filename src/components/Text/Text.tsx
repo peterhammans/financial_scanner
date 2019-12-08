@@ -52,9 +52,6 @@ const Text: React.FC<TextProps> & { defaultProps: DefaultProps } = ({
 Text.defaultProps = {
   tagName: "p",
   color: "dark",
-  marginRight: "0",
-  marginBottom: "0",
-  marginLeft: "0",
   fontSize: "md"
 };
 

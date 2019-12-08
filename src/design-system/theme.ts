@@ -55,6 +55,6 @@ export const theme: Theme = {
     xl: 20,
     "2xl": 24,
     "3xl": 28,
-    "0": 32
+    "0": 0
   }
 };
