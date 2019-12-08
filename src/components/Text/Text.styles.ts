@@ -1,6 +1,6 @@
 import * as mixins from "src/design-system/mixins";
 import { TextProps } from "./Text";
-import { createUseStyles, Styles } from 'react-jss';
+import { createUseStyles, Styles } from "react-jss";
 import { Theme } from "src/design-system/types";
 
 type StyleProps = Pick<
@@ -8,11 +8,17 @@ type StyleProps = Pick<
   "color" | "marginRight" | "marginBottom" | "marginLeft" | "fontSize"
 >;
 
-type StyleClassNames = 'text';
+type StyleClassNames = "text";
 
 const useStyles = createUseStyles<Theme, StyleClassNames>(
   (theme: Theme): Styles<StyleClassNames> => ({
-    text: ({ marginRight, marginBottom, marginLeft, fontSize, color }: StyleProps) => ({
+    text: ({
+      marginRight,
+      marginBottom,
+      marginLeft,
+      fontSize,
+      color
+    }: StyleProps) => ({
       ...mixins.spacings(theme)({
         marginRight,
         marginBottom,

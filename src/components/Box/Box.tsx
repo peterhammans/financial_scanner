@@ -8,9 +8,17 @@ interface RequiredProps {
 }
 
 interface DefaultProps {
+  direction: 'row' | 'row-reverse' | 'column' | 'column-reverse';
+  wrap: 'nowrap' | 'wrap' | 'wrap-reverse';
+  justifyContent: 'flex-start' | 'center' | 'flex-end';
+  alignItems: 'flex-start' | 'center' | 'flex-end';
+  width: string;
+  grow?: number;
+  marginTop?: Responsive<Spacings>;
   marginRight?: Responsive<Spacings>;
   marginBottom?: Responsive<Spacings>;
   marginLeft?: Responsive<Spacings>;
+  margin?: Responsive<Spacings>;
   paddingTop?: Responsive<Spacings>;
   paddingRight?: Responsive<Spacings>;
   paddingBottom?: Responsive<Spacings>;
@@ -52,6 +60,12 @@ const Box: React.FC<BoxProps> & { defaultProps: DefaultProps } = ({
   );
 };
 
-Box.defaultProps = {};
+Box.defaultProps = {
+  direction: 'row',
+  wrap: 'nowrap',
+  justifyContent: 'flex-start',
+  alignItems: 'flex-start',
+  width: '100%'
+};
 
 export default Box;
