@@ -1,0 +1,11 @@
+{
+  "extends": "stylelint-config-recommended",
+  "rules": {
+    "no-descending-specificity": null,
+    "at-rule-no-unknown": null,
+    "selector-type-no-unknown": [true, { "ignoreTypes": ["rectangle"] }],
+    "font-family-no-missing-generic-family-keyword": null,
+    "no-extra-semicolons": null,
+    "property-no-unknown": null
+  }
+}

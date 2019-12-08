@@ -1,16 +1,28 @@
-import * as mixins from 'src/design-system/mixins';
-import { Props } from './Box';
-import { makeStyles, Theme } from '@material-ui/core/styles';
+import * as mixins from "src/design-system/mixins";
+import { BoxProps } from "./Box";
+import { createUseStyles, Styles } from 'react-jss';
+import { Theme } from "src/design-system/types";
 
-type StyleProps = Pick<Props, 'marginRight' | 'marginBottom' | 'marginLeft'>;
+type StyleProps = Pick<
+  BoxProps,
+  "marginRight"
+  | "marginBottom"
+  | "marginLeft"
+  | "paddingTop"
+  | "paddingRight"
+  | "paddingBottom"
+  | "paddingLeft"
+  | "padding"
+>;
 
-const useStyles = makeStyles((theme: Theme) => ({
-  box: ({ marginRight, marginBottom, marginLeft }: StyleProps) => ({
-    ...mixins.spacings(theme)(
-      { marginRight, marginBottom, marginLeft }
-    )
+type StyleClassNames = 'box';
+
+const useStyles = createUseStyles<Theme, StyleClassNames>(
+  (theme: Theme): Styles<StyleClassNames> => ({
+    box: (props: StyleProps) => ({
+      ...mixins.spacings(theme)({ ...props })
+    })
   })
-}));
+);
 
 export default useStyles;
-

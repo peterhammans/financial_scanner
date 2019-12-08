@@ -1,29 +1,61 @@
+import React from "react";
+import { Responsive, Sizes, Spacings, Colors } from "src/design-system/types";
+import useStyles from "./Text.styles";
+import { useTheme } from 'react-jss';
 
-import React from 'react';
-import { Without } from 'src/types';
-import { Responsive, Sizes, Spacings } from 'src/design-system/types';
-import Typography, { TypographyProps } from '@material-ui/core/Typography';
-import useStyles from './Text.styles';
+type TagName = 'span' | 'p' | 'div';
 
-export interface Props extends Without<TypographyProps, 'paragraph' | 'gutterBottom'> {
+interface RequiredProps {
   children: React.ReactNode;
+}
+
+interface DefaultProps {
+  tagName: TagName;
+  color: Colors;
+  fontSize: Responsive<Sizes>;
   marginRight?: Responsive<Spacings>;
   marginBottom?: Responsive<Spacings>;
   marginLeft?: Responsive<Spacings>;
-  fontSize?: Responsive<Sizes>;
 }
 
-const Text = ({
-  children,
-  marginRight = '0',
-  marginBottom = '0',
-  marginLeft = '0',
-  fontSize = 'md',
-  ...outerProps
-}: Props) => {
-  const classes = useStyles({ marginBottom, marginRight, marginLeft, fontSize });
+export type TextProps = RequiredProps & DefaultProps;
 
-  return <Typography {...outerProps} className={classes.text}>{children}</Typography>;
+const Text: React.FC<TextProps> & { defaultProps: DefaultProps } = ({
+  children,
+  tagName,
+  color,
+  marginRight,
+  marginBottom,
+  marginLeft,
+  fontSize,
+  ...outerProps
+}) => {
+  const theme = useTheme();
+  const classes = useStyles({
+    color,
+    marginBottom,
+    marginRight,
+    marginLeft,
+    fontSize,
+    theme
+  });
+
+  const Component = tagName;
+
+  return (
+    <Component {...outerProps} className={classes.text}>
+      {children}
+    </Component>
+  );
+};
+
+Text.defaultProps = {
+  tagName: "p",
+  color: "dark",
+  marginRight: "0",
+  marginBottom: "0",
+  marginLeft: "0",
+  fontSize: "md"
 };
 
 export default Text;

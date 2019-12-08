@@ -1,17 +1,27 @@
-import * as mixins from 'src/design-system/mixins';
-import { Props } from './Text';
-import { makeStyles, Theme } from '@material-ui/core/styles';
+import * as mixins from "src/design-system/mixins";
+import { TextProps } from "./Text";
+import { createUseStyles, Styles } from 'react-jss';
+import { Theme } from "src/design-system/types";
 
-type StyleProps = Pick<Props, 'color' | 'marginRight' | 'marginBottom' | 'marginLeft' | 'fontSize'>;
+type StyleProps = Pick<
+  TextProps,
+  "color" | "marginRight" | "marginBottom" | "marginLeft" | "fontSize"
+>;
 
-const useStyles = makeStyles((theme: Theme) => ({
-  text: ({ marginRight, marginBottom, marginLeft, fontSize }: StyleProps) => ({
-    ...mixins.spacings(theme)(
-      { marginRight, marginBottom, marginLeft }
-    ),
-    ...mixins.responsive(theme)(theme.responsive.typography.sizes, { fontSize }),
-  }),
-}));
+type StyleClassNames = 'text';
+
+const useStyles = createUseStyles<Theme, StyleClassNames>(
+  (theme: Theme): Styles<StyleClassNames> => ({
+    text: ({ marginRight, marginBottom, marginLeft, fontSize, color }: StyleProps) => ({
+      ...mixins.spacings(theme)({
+        marginRight,
+        marginBottom,
+        marginLeft
+      }),
+      ...mixins.responsive(theme)(theme.typography.sizes, { fontSize }),
+      color: theme.colors[color]
+    })
+  })
+);
 
 export default useStyles;
-

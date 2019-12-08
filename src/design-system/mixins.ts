@@ -1,6 +1,4 @@
-import { Theme } from '@material-ui/core/styles/createMuiTheme';
-import { Breakpoint } from '@material-ui/core/styles/createBreakpoints';
-import { Responsive, Sizes, ResponsiveStyleProps, Spacings } from './types';
+import { Responsive, Sizes, ResponsiveStyleProps, Spacings, Breakpoint } from './types';
 
 const getPropValue = (themeFormatter: any, value: string | number) => {
   if (value) {
@@ -11,7 +9,7 @@ const getPropValue = (themeFormatter: any, value: string | number) => {
   }
 }
 
-export const responsive = (theme: Theme) => (
+export const responsive = (theme: any) => (
   themeFormatter: any,
   styleProps: {
     [key: string]: Responsive<Sizes | Spacings> | number | string | undefined
@@ -40,9 +38,11 @@ export const responsive = (theme: Theme) => (
   return styles;
 }
 
-export const spacings = (theme: Theme) => (margins: any) =>
-  responsive(theme)((value: string) => 
-    `${theme.spacing(theme.responsive.spacings[value as Spacings])}px`,
-    margins
-  )
+export const spacings = (theme: any) => (spacings: any) =>
+  responsive(theme)((value: string) =>
+    theme.spacings[value as Spacings],
+    spacings
+  );
+
+export const boxShadow = (height: number = 4) => `0 ${height}px 8px 0 rgba(0, 0, 0, 0.2)`;
     
