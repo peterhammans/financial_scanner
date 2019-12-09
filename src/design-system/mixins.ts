@@ -1,4 +1,5 @@
 import { Responsive, Sizes, ResponsiveStyleProps, Spacings, Breakpoint } from './types';
+import CSS from 'src/helpers/css';
 
 const getPropValue = (themeFormatter: any, value: string | number) => {
   if (value) {
@@ -40,9 +41,9 @@ export const responsive = (theme: any) => (
 
 export const spacings = (theme: any) => (spacings: any) =>
   responsive(theme)((value: string) =>
-    theme.spacings[value as Spacings],
+    CSS.px(theme.spacings[value as Spacings]),
     spacings
   );
 
-export const boxShadow = (height: number = 4) => `0 ${height}px 8px 0 rgba(0, 0, 0, 0.2)`;
+export const boxShadow = (height: number = 4) => `0 ${CSS.px(height)} 8px 0 rgba(0, 0, 0, 0.2)`;
     

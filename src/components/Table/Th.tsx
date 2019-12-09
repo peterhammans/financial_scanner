@@ -2,8 +2,11 @@ import React from "react";
 import useStyles from "./Table.styles";
 import { useTheme } from 'react-jss';
 import { Responsive, Spacings } from "src/design-system/types";
+import { ViewportProps } from "src/containers/Viewport/Viewport";
+import { isTabletUp } from "src/design-system/theme";
+import { withViewport } from "src/containers/Viewport";
 
-interface RequiredProps {
+interface RequiredProps extends ViewportProps {
   children: React.ReactNode;
 }
 
@@ -20,16 +23,23 @@ const Th: React.FC<ThProps> & { defaultProps: DefaultProps } = ({
   textAlign,
   padding,
   noBorder,
+  viewportWidth,
   ...outerProps
 }) => {
   const theme = useTheme();
   const classes = useStyles({ textAlign, noBorder, padding, theme });
 
   return (
-    <th {...outerProps} className={classes.th}>
-      {children}
-    </th>
-  );
+    <>
+      {
+        isTabletUp(viewportWidth) && (
+          <th {...outerProps} className={classes.th}>
+            {children}
+          </th>
+        )
+      }
+    </>
+  )
 };
 
 Th.defaultProps = {
@@ -38,4 +48,4 @@ Th.defaultProps = {
   noBorder: false
 }
 
-export default Th;
+export default withViewport()(Th);

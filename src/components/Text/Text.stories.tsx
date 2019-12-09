@@ -8,7 +8,7 @@ import Text from './Text';
 storiesOf('Text', module)
   .addDecorator(story => <StoryDecorator><Card>{story()}</Card></StoryDecorator>)
   .addDecorator(themeDecorator)
-  .add('Sizes', () => (
+  .add('Colours', () => (
     <div>
       <Text color="dark">
         Dark
@@ -33,28 +33,28 @@ storiesOf('Text', module)
       </Text>
     </div>
   ))
-  .add('Colors', () => (
+  .add('Sizes', () => (
     <div>
       <Text marginBottom="sm" fontSize="3xl">
-        Size 5xl
+        Size 3xl
       </Text>
       <Text marginBottom="sm" fontSize="2xl">
-        Size 5xl
+        Size 2xl
       </Text>
       <Text marginBottom="sm" fontSize="xl">
-        Size 5xl
+        Size xl
       </Text>
       <Text marginBottom="sm" fontSize="lg">
-        Size 5xl
+        Size lg
       </Text>
       <Text marginBottom="sm" fontSize="md">
-        Size 5xl
+        Size md
       </Text>
       <Text marginBottom="sm" fontSize="sm">
-        Size 5xl
+        Size sm
       </Text>
       <Text marginBottom="sm" fontSize="xs">
-        Size 5xl
+        Size xs
       </Text>
     </div>
   ));

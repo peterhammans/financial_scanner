@@ -11,6 +11,7 @@ interface DefaultProps {
   backgroundColor: Colors;
   padding: Responsive<Spacings>;
   noShadow: boolean;
+  fullWidth: boolean;
   marginRight?: Responsive<Spacings>;
   marginBottom?: Responsive<Spacings>;
   marginLeft?: Responsive<Spacings>;
@@ -25,6 +26,7 @@ const Card: React.FC<CardProps> & { defaultProps: DefaultProps } = ({
   marginBottom,
   marginLeft,
   padding,
+  fullWidth,
   noShadow,
   ...outerProps
 }) => {
@@ -35,6 +37,7 @@ const Card: React.FC<CardProps> & { defaultProps: DefaultProps } = ({
     marginLeft,
     backgroundColor,
     padding,
+    fullWidth,
     noShadow,
     theme
   });
@@ -49,7 +52,8 @@ const Card: React.FC<CardProps> & { defaultProps: DefaultProps } = ({
 Card.defaultProps = {
   backgroundColor: "light",
   padding: "md",
-  noShadow: false
+  noShadow: false,
+  fullWidth: false
 }
 
 export default Card;

@@ -19,12 +19,15 @@ export type Responsive<T> = Record<Breakpoint, T> | T;
 
 export interface Theme {
   breakpoints: {
-    xs: number,
-    sm: number,
-    md: number,
-    lg: number,
-    xl: number,
+    values: {
+      xs: number,
+      sm: number,
+      md: number,
+      lg: number,
+      xl: number
+    },
     up(breakpoint: Breakpoint): string;
+    down(breakpoint: Breakpoint): string;
   },
   typography: {
     fontFamily: string;

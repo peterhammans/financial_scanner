@@ -1,23 +1,10 @@
 import React from "react";
-import Table from "@material-ui/core/Table";
-import TableBody from "@material-ui/core/TableBody";
-import TableCell from "@material-ui/core/TableCell";
-import TableHead from "@material-ui/core/TableHead";
-import TableRow from "@material-ui/core/TableRow";
 import { Card } from "src/components/Card";
 import { Text } from "src/components/Text";
-import { Paper, Grid, Container } from "@material-ui/core";
-import MoreVertIcon from "@material-ui/icons/MoreVert";
-import Tooltip from "@material-ui/core/Tooltip";
-import InfoIcon from "@material-ui/icons/Info";
 import { Box } from "src/components/Box";
-import { CompanySymbol, SymbolStats, Traded } from "src/types";
-import IconButton from '@material-ui/core/IconButton';
-import { Popper } from 'src/components/Popper';
-import List from '@material-ui/core/List';
-import ListItem from '@material-ui/core/ListItem';
-import ListItemIcon from '@material-ui/core/ListItemIcon';
-import ListItemText from '@material-ui/core/ListItemText';
+import { CompanySymbol, Traded } from "src/types";
+import { SymbolStats } from "./redux/types";
+import { Table, Tr, Td, Th } from "src/components/Table";
 
 function createSymbol(
   symbol: CompanySymbol,
@@ -84,8 +71,29 @@ class Listing extends React.Component<{}, State> {
 
     return (
       <Box padding="md">
-        <Card>
-          <Text marginBottom="lg">"TEST"</Text>
+        <Card fullWidth>
+          <Table summary="Default table">
+            <Tr>
+              <Th><Text tagName="span">Heading 1</Text></Th>
+              <Th><Text tagName="span">Heading 2</Text></Th>
+              <Th><Text tagName="span">Heading 3</Text></Th>
+            </Tr>
+            <Tr>
+              <Td><Text tagName="span">Row 1</Text></Td>
+              <Td><Text tagName="span">Row 1</Text></Td>
+              <Td><Text tagName="span">Row 1</Text></Td>
+            </Tr>
+            <Tr>
+              <Td><Text tagName="span">Row 2</Text></Td>
+              <Td><Text tagName="span">Row 2</Text></Td>
+              <Td><Text tagName="span">Row 2</Text></Td>
+            </Tr>
+            <Tr noBorder>
+              <Td><Text tagName="span">Row 3</Text></Td>
+              <Td><Text tagName="span">Row 3</Text></Td>
+              <Td><Text tagName="span">Row 3</Text></Td>
+            </Tr>
+          </Table>
         </Card>
       </Box>
     );

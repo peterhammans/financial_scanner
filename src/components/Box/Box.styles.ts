@@ -1,4 +1,5 @@
-import * as mixins from "src/design-system/mixins";
+import margin from 'polished/lib/shorthands/margin';
+import * as mixins from 'src/design-system/mixins';
 import { BoxProps } from "./Box";
 import { createUseStyles, Styles } from "react-jss";
 import { Theme } from "src/design-system/types";
@@ -28,16 +29,32 @@ type StyleClassNames = "box";
 const useStyles = createUseStyles<Theme, StyleClassNames>(
   (theme: Theme): Styles<StyleClassNames> => ({
     box: ({
-      width,
-      wrap,
-      grow,
-      direction,
-      justifyContent,
-      alignItems,
+      margin,
+      marginTop,
+      marginBottom,
+      marginLeft,
+      marginRight,
+      padding,
+      paddingRight,
+      paddingTop,
+      paddingBottom,
+      paddingLeft,
       ...outerProps
     }: StyleProps) => ({
-      ...mixins.spacings(theme)({ ...outerProps }),
+      ...mixins.spacings(theme)({
+        margin,
+        marginTop,
+        marginBottom,
+        marginLeft,
+        marginRight,
+        padding,
+        paddingRight,
+        paddingTop,
+        paddingBottom,
+        paddingLeft
+      }),
       display: "flex",
+      boxSizing: 'border-box',
       ...outerProps
     })
   })

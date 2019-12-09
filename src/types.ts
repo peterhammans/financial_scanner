@@ -1,5 +1,7 @@
 export type Without<T, K extends keyof T> = Pick<T, Exclude<keyof T, K>>
 
+export type Err = Error;
+
 export type CompanySymbol = 'AMD' | 'MA';
 
 export interface Traded {
@@ -7,12 +9,8 @@ export interface Traded {
   quantity: number;
 }
 
-export interface SymbolStats {
-  symbol: CompanySymbol;
-  avgPosition: number;
-  volatility: number;
-  currentTrend: number;
-  currentSell: number;
-  currentBuy: number;
-  traded?: Traded;
+export interface SagaCallbacks {
+  success?(): void;
+  failure?(): void;
+  fulfill?(): void;
 }

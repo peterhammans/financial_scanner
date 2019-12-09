@@ -33,11 +33,18 @@ const Box: React.FC<BoxProps> & { defaultProps: DefaultProps } = ({
   marginRight,
   marginBottom,
   marginLeft,
+  margin,
   paddingTop,
   paddingRight,
   paddingBottom,
   paddingLeft,
   padding,
+  justifyContent,
+  alignItems,
+  grow,
+  width,
+  wrap,
+  direction,
   ...outerProps
 }) => {
   const theme = useTheme();
@@ -45,11 +52,18 @@ const Box: React.FC<BoxProps> & { defaultProps: DefaultProps } = ({
     marginRight,
     marginBottom,
     marginLeft,
+    margin,
     paddingTop,
     paddingRight,
     paddingBottom,
     paddingLeft,
     padding,
+    justifyContent,
+    alignItems,
+    grow,
+    width,
+    wrap,
+    direction,
     theme
   });
 

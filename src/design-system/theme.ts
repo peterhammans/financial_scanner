@@ -1,15 +1,51 @@
 import { Theme, Breakpoint } from "./types";
 
+export const isMobile = (viewportWidth: number) => {
+  const { breakpoints: { values: breakpointValues } } = theme;
+  return viewportWidth >= breakpointValues.xs && viewportWidth < breakpointValues.md;
+}
+
+export const isMobileUp = (viewportWidth: number) => {
+  const { breakpoints: { values: breakpointValues } } = theme;
+  return viewportWidth >= breakpointValues.xs;
+}
+
+export const isTablet = (viewportWidth: number) => {
+  const { breakpoints: { values: breakpointValues } } = theme;
+  return viewportWidth >= breakpointValues.md && viewportWidth < breakpointValues.lg;
+}
+
+export const isTabletUp = (viewportWidth: number) => {
+  const { breakpoints: { values: breakpointValues } } = theme;
+  return viewportWidth >= breakpointValues.md;
+}
+
+export const isDesktop = (viewportWidth: number) => {
+  const { breakpoints: { values: breakpointValues } } = theme;
+  return viewportWidth >= breakpointValues.lg;
+}
+
+export const isDesktopUp = (viewportWidth: number) => {
+  const { breakpoints: { values: breakpointValues } } = theme;
+  return viewportWidth >= breakpointValues.lg;
+}
+
 export const theme: Theme = {
   breakpoints: {
-    xs: 0,
-    sm: 600,
-    md: 960,
-    lg: 1280,
-    xl: 1920,
+    values: {
+      xs: 0,
+      sm: 600,
+      md: 960,
+      lg: 1280,
+      xl: 1920,
+    },
     up: (breakpoint: Breakpoint) => {
-      console.log(theme);
-      return ''
+      const { breakpoints: { values: breakpointValues } } = theme;
+      return `@media only screen and (min-width: ${breakpointValues[breakpoint]}px)`
+    },
+    down: (breakpoint: Breakpoint) => {
+      const { breakpoints: { values: breakpointValues } } = theme;
+      return `@media only screen and (max-width: ${breakpointValues[breakpoint]}px)`
     }
   },
   typography: {

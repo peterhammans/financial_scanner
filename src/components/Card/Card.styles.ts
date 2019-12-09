@@ -10,6 +10,7 @@ type StyleProps = Pick<
   | "marginLeft"
   | "padding"
   | "backgroundColor"
+  | "fullWidth"
   | "noShadow"
 >;
 
@@ -23,6 +24,7 @@ const useStyles = createUseStyles<Theme, StyleClassNames>(
       marginBottom,
       marginLeft,
       padding,
+      fullWidth,
       noShadow
     }: StyleProps) => ({
       ...mixins.spacings(theme)({
@@ -35,6 +37,7 @@ const useStyles = createUseStyles<Theme, StyleClassNames>(
       backgroundColor: theme.colors[backgroundColor],
       display: "flex",
       flexDirection: "column",
+      ...(fullWidth && { width: '100%' }),
       ...(!noShadow && { boxShadow: mixins.boxShadow() })
     })
   })
