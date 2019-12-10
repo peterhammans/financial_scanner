@@ -1,12 +1,14 @@
 import { Action } from 'redux-actions';
-import { put, takeLatest } from 'redux-saga/effects';
+import { call, put, takeLatest } from 'redux-saga/effects';
 
 import { getSymbols } from './actions';
+import * as symbolsService from 'src/services/symbols/service';
 import { SagaCallbacks } from 'src/types';
 
 export function* getSymbolsSaga({ payload }: Action<SagaCallbacks>) {
   try {
-    // yield call(customersService.notifyCustomers, payload);
+    const res = yield call(symbolsService.getSymbols);
+    yield put(getSymbols.success(res.data));
     if (payload.success) payload.success();
   } catch (error) {
     yield put(getSymbols.failure(error.message));

@@ -1,5 +1,5 @@
 import React from "react";
-import { Responsive, Spacings } from "src/design-system/types";
+import { Responsive, Spacings, Colors } from "src/design-system/types";
 import { useTheme } from 'react-jss';
 import useStyles from "./Box.styles";
 
@@ -13,6 +13,7 @@ interface DefaultProps {
   justifyContent: 'flex-start' | 'center' | 'flex-end';
   alignItems: 'flex-start' | 'center' | 'flex-end';
   width: string;
+  backgroundColor: Colors;
   grow?: number;
   marginTop?: Responsive<Spacings>;
   marginRight?: Responsive<Spacings>;
@@ -45,6 +46,7 @@ const Box: React.FC<BoxProps> & { defaultProps: DefaultProps } = ({
   width,
   wrap,
   direction,
+  backgroundColor,
   ...outerProps
 }) => {
   const theme = useTheme();
@@ -64,6 +66,7 @@ const Box: React.FC<BoxProps> & { defaultProps: DefaultProps } = ({
     width,
     wrap,
     direction,
+    backgroundColor,
     theme
   });
 
@@ -79,7 +82,8 @@ Box.defaultProps = {
   wrap: 'nowrap',
   justifyContent: 'flex-start',
   alignItems: 'flex-start',
-  width: '100%'
+  width: '100%',
+  backgroundColor: 'transparent'
 };
 
 export default Box;

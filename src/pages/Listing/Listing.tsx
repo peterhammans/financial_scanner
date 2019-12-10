@@ -2,9 +2,13 @@ import React from "react";
 import { Card } from "src/components/Card";
 import { Text } from "src/components/Text";
 import { Box } from "src/components/Box";
-import { CompanySymbol, Traded } from "src/types";
+import { CompanySymbol, Traded, SagaCallbacks } from "src/types";
 import { SymbolStats } from "./redux/types";
 import { Table, Tr, Td, Th } from "src/components/Table";
+import * as actions from './redux/actions';
+import * as selectors from './redux/selectors';
+import { connect } from 'react-redux';
+import { AppState } from "../../store/types";
 
 function createSymbol(
   symbol: CompanySymbol,
@@ -41,16 +45,30 @@ const rows: SymbolStats[] = [
   createSymbol("MA", 237, 9.0, 37, 10, 10)
 ];
 
+interface RequiredProps {
+  getSymbols(payload: SagaCallbacks): void;
+  list: SymbolStats[];
+}
+
 interface State {
   activeSymbol: CompanySymbol | undefined;
   anchorEl: HTMLButtonElement | undefined;
 }
 
-class Listing extends React.Component<{}, State> {
+export type ListingProps = RequiredProps;
+
+class Listing extends React.Component<ListingProps, State> {
   state = {
     activeSymbol: undefined,
     anchorEl: undefined
   };
+
+  componentDidMount() {
+    const { getSymbols } = this.props;
+    getSymbols({
+
+    });
+  }
 
   handleShowMenu = (e: React.MouseEvent<HTMLButtonElement, MouseEvent>) => (companySymbol: CompanySymbol) => {
     this.setState({
@@ -68,31 +86,35 @@ class Listing extends React.Component<{}, State> {
 
   render() {
     const { activeSymbol, anchorEl } = this.state;
-
+    const { list } = this.props;
+    console.log('LIST', list);
     return (
       <Box padding="md">
         <Card fullWidth>
           <Table summary="Default table">
             <Tr>
-              <Th><Text tagName="span">Heading 1</Text></Th>
-              <Th><Text tagName="span">Heading 2</Text></Th>
-              <Th><Text tagName="span">Heading 3</Text></Th>
+              <Th><Text tagName="span">Symbol</Text></Th>
+              <Th><Text tagName="span">Avg position</Text></Th>
+              <Th><Text tagName="span">Volatility</Text></Th>
+              <Th><Text tagName="span">Trend</Text></Th>
+              <Th><Text tagName="span">Sell</Text></Th>
+              <Th><Text tagName="span">Buy</Text></Th>
             </Tr>
-            <Tr>
-              <Td><Text tagName="span">Row 1</Text></Td>
-              <Td><Text tagName="span">Row 1</Text></Td>
-              <Td><Text tagName="span">Row 1</Text></Td>
-            </Tr>
-            <Tr>
-              <Td><Text tagName="span">Row 2</Text></Td>
-              <Td><Text tagName="span">Row 2</Text></Td>
-              <Td><Text tagName="span">Row 2</Text></Td>
-            </Tr>
-            <Tr noBorder>
-              <Td><Text tagName="span">Row 3</Text></Td>
-              <Td><Text tagName="span">Row 3</Text></Td>
-              <Td><Text tagName="span">Row 3</Text></Td>
-            </Tr>
+            {
+              list.map((symbolStats: SymbolStats) => {
+                const { symbol, avgPosition, volatility, currentTrend, currentSell, currentBuy } = symbolStats;
+                return (
+                  <Tr>
+                    <Td><Text tagName="span">{symbol}</Text></Td>
+                    <Td><Text tagName="span">{avgPosition}</Text></Td>
+                    <Td><Text tagName="span">{volatility}</Text></Td>
+                    <Td><Text tagName="span">{currentTrend}</Text></Td>
+                    <Td><Text tagName="span">{currentSell}</Text></Td>
+                    <Td><Text tagName="span">{currentBuy}</Text></Td>
+                  </Tr>
+                );
+              })
+            }
           </Table>
         </Card>
       </Box>
@@ -269,4 +291,17 @@ class Listing extends React.Component<{}, State> {
   }
 }
 
-export default Listing;
+export const mapStateToProps = (state: AppState) => ({
+  list: selectors.selectSymbolsList(state)
+});
+
+export const mapDispatchToProps = {
+  getSymbols: actions.getSymbols.request
+};
+
+export { Listing as UnwrappedManagement };
+
+export default connect(
+  mapStateToProps,
+  mapDispatchToProps
+)(Listing);

@@ -22,6 +22,7 @@ type StyleProps = Pick<
   | "direction"
   | "justifyContent"
   | "alignItems"
+  | "backgroundColor"
 >;
 
 type StyleClassNames = "box";
@@ -39,6 +40,10 @@ const useStyles = createUseStyles<Theme, StyleClassNames>(
       paddingTop,
       paddingBottom,
       paddingLeft,
+      direction,
+      wrap,
+      grow,
+      backgroundColor,
       ...outerProps
     }: StyleProps) => ({
       ...mixins.spacings(theme)({
@@ -55,6 +60,10 @@ const useStyles = createUseStyles<Theme, StyleClassNames>(
       }),
       display: "flex",
       boxSizing: 'border-box',
+      flexDirection: direction,
+      flexWrap: wrap,
+      flexGrow: grow,
+      backgroundColor: theme.colors[backgroundColor],
       ...outerProps
     })
   })

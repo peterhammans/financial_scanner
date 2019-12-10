@@ -35,4 +35,4 @@ export interface Theme {
   },
   colors: Record<Colors, string>;
   spacings: Record<Spacings, number>;
-} 
+}
