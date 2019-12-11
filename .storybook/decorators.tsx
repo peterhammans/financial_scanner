@@ -1,20 +1,16 @@
 import React from 'react';
-import { ThemeProvider, createUseStyles } from "react-jss";
+import { ThemeProvider } from "emotion-theming";
 import { theme } from "src/design-system/theme";
 
-export const themeDecorator = storyFn => (
+export const themeDecorator = (storyFn: any) => (
   <ThemeProvider theme={theme}>{storyFn()}</ThemeProvider>
 );
 
-const useStyles = createUseStyles({
-  story: {
+export const StoryDecorator = ({ children }: { children: React.ReactNode}) => (
+  <div style={{
     background: '#f2f2f2',
     padding: '24px'
-  }
-});
-
-export const StoryDecorator = ({ children }: { children: React.ReactNode}) => {
-  const classes = useStyles();
-
-  return <div className={classes.story}>{children}</div>;
-};
+  }}>
+    {children}
+  </div>
+);

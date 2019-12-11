@@ -2,13 +2,14 @@ import React from "react";
 import { Card } from "src/components/Card";
 import { Text } from "src/components/Text";
 import { Box } from "src/components/Box";
+import { Loading } from "src/components/Loading";
 import { CompanySymbol, Traded, SagaCallbacks } from "src/types";
 import { SymbolStats } from "./redux/types";
 import { Table, Tr, Td, Th } from "src/components/Table";
 import * as actions from './redux/actions';
 import * as selectors from './redux/selectors';
 import { connect } from 'react-redux';
-import { AppState } from "../../store/types";
+import { AppState } from "src/store/types";
 
 function createSymbol(
   symbol: CompanySymbol,
@@ -100,6 +101,9 @@ class Listing extends React.Component<ListingProps, State> {
               <Th><Text tagName="span">Sell</Text></Th>
               <Th><Text tagName="span">Buy</Text></Th>
             </Tr>
+            {
+              !list.length && <Loading />
+            }
             {
               list.map((symbolStats: SymbolStats) => {
                 const { symbol, avgPosition, volatility, currentTrend, currentSell, currentBuy } = symbolStats;

@@ -1,7 +1,8 @@
-import React from "react";
-import useStyles from "./Loading.styles";
-import { useTheme } from 'react-jss';
-import { Colors, Theme } from "src/design-system/types";
+import * as React from 'react';
+/** @jsx jsx */
+import { css, jsx } from '@emotion/core';
+import { Colors } from "src/design-system/types";
+import * as styles from './Loading.styles';
 
 export type LoadingSize = 'small' | 'normal' | 'big';
 
@@ -17,15 +18,9 @@ const Loading: React.FC<LoadingProps> & { defaultProps: DefaultProps } = ({
   color,
   ...outerProps
 }) => {
-  const theme = useTheme();
-  const classes = useStyles({
-    color,
-    size,
-    theme
-  });
 
   return (
-    <div {...outerProps} className={classes.loading}>
+    <div {...outerProps} css={styles.container({ size, color })}>
       <div />
       <div />
     </div>

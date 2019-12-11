@@ -1,5 +1,5 @@
 import React from "react";
-import { ThemeProvider } from 'react-jss';
+import { ThemeProvider } from 'emotion-theming';
 import { Provider } from 'react-redux';
 import { theme } from 'src/design-system/theme';
 import { Route, BrowserRouter as Router } from "react-router-dom";

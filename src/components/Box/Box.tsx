@@ -1,7 +1,8 @@
-import React from "react";
+import * as React from 'react';
+/** @jsx jsx */
+import { css, jsx } from '@emotion/core';
 import { Responsive, Spacings, Colors } from "src/design-system/types";
-import { useTheme } from 'react-jss';
-import useStyles from "./Box.styles";
+import * as styles from "./Box.styles";
 
 interface RequiredProps {
   children: React.ReactNode;
@@ -29,28 +30,9 @@ interface DefaultProps {
 
 export type BoxProps = RequiredProps & DefaultProps;
 
-const Box: React.FC<BoxProps> & { defaultProps: DefaultProps } = ({
-  children,
-  marginRight,
-  marginBottom,
-  marginLeft,
-  margin,
-  paddingTop,
-  paddingRight,
-  paddingBottom,
-  paddingLeft,
-  padding,
-  justifyContent,
-  alignItems,
-  grow,
-  width,
-  wrap,
-  direction,
-  backgroundColor,
-  ...outerProps
-}) => {
-  const theme = useTheme();
-  const classes = useStyles({
+const Box: React.FC<BoxProps> & { defaultProps: DefaultProps } = (props: BoxProps) => {
+  const {
+    children,
     marginRight,
     marginBottom,
     marginLeft,
@@ -67,11 +49,11 @@ const Box: React.FC<BoxProps> & { defaultProps: DefaultProps } = ({
     wrap,
     direction,
     backgroundColor,
-    theme
-  });
+    ...outerProps
+  } = props;
 
   return (
-    <div {...outerProps} className={classes.box}>
+    <div {...outerProps} css={styles.container(props)}>
       {children}
     </div>
   );

@@ -1,7 +1,5 @@
-import margin from 'polished/lib/shorthands/margin';
-import * as mixins from 'src/design-system/mixins';
+import { css, keyframes } from "@emotion/core";
 import { BoxProps } from "./Box";
-import { createUseStyles, Styles } from "react-jss";
 import { Theme } from "src/design-system/types";
 
 type StyleProps = Pick<
@@ -25,48 +23,18 @@ type StyleProps = Pick<
   | "backgroundColor"
 >;
 
-type StyleClassNames = "box";
+const container = ({ alignItems, justifyContent, width, direction, wrap, grow, backgroundColor }: StyleProps) => (
+  theme: Theme
+) => css`
+  display: flex;
+  box-sizing: border-box;
+  flex-direction: ${direction};
+  flex-wrap: ${wrap};
+  flex-grow: ${grow};
+  background-color: ${theme.colors[backgroundColor]};
+  width: ${width};
+  justify-content: ${justifyContent};
+  align-items: ${alignItems};
+`;
 
-const useStyles = createUseStyles<Theme, StyleClassNames>(
-  (theme: Theme): Styles<StyleClassNames> => ({
-    box: ({
-      margin,
-      marginTop,
-      marginBottom,
-      marginLeft,
-      marginRight,
-      padding,
-      paddingRight,
-      paddingTop,
-      paddingBottom,
-      paddingLeft,
-      direction,
-      wrap,
-      grow,
-      backgroundColor,
-      ...outerProps
-    }: StyleProps) => ({
-      ...mixins.spacings(theme)({
-        margin,
-        marginTop,
-        marginBottom,
-        marginLeft,
-        marginRight,
-        padding,
-        paddingRight,
-        paddingTop,
-        paddingBottom,
-        paddingLeft
-      }),
-      display: "flex",
-      boxSizing: 'border-box',
-      flexDirection: direction,
-      flexWrap: wrap,
-      flexGrow: grow,
-      backgroundColor: theme.colors[backgroundColor],
-      ...outerProps
-    })
-  })
-);
-
-export default useStyles;
+export { container };
