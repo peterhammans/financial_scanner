@@ -17,6 +17,8 @@ export type Colors = 'dark' | 'light' | 'success' | 'warning' | 'error' | 'grey2
 
 export type Responsive<T> = Record<Breakpoint, T> | T;
 
+export type Normal<T = string | number | boolean> = T;
+
 export interface Theme {
   breakpoints: {
     values: {

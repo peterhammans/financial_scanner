@@ -1,4 +1,5 @@
-import { css, keyframes } from "@emotion/core";
+import { css } from "@emotion/core";
+import * as mixins from 'src/design-system/mixins';
 import { BoxProps } from "./Box";
 import { Theme } from "src/design-system/types";
 
@@ -23,7 +24,25 @@ type StyleProps = Pick<
   | "backgroundColor"
 >;
 
-const container = ({ alignItems, justifyContent, width, direction, wrap, grow, backgroundColor }: StyleProps) => (
+const container = ({
+  alignItems,
+  justifyContent,
+  width,
+  direction,
+  wrap,
+  grow,
+  backgroundColor,
+  margin,
+  marginTop,
+  marginRight,
+  marginBottom,
+  marginLeft,
+  padding,
+  paddingTop,
+  paddingRight,
+  paddingBottom,
+  paddingLeft
+}: StyleProps) => (
   theme: Theme
 ) => css`
   display: flex;
@@ -35,6 +54,19 @@ const container = ({ alignItems, justifyContent, width, direction, wrap, grow, b
   width: ${width};
   justify-content: ${justifyContent};
   align-items: ${alignItems};
+
+  ${mixins.spacings({
+    margin,
+    marginTop,
+    marginRight,
+    marginBottom,
+    marginLeft,
+    padding,
+    paddingTop,
+    paddingRight,
+    paddingBottom,
+    paddingLeft
+  })(theme)}
 `;
 
 export { container };

@@ -1,7 +1,7 @@
+import { css } from "@emotion/core";
 import * as mixins from "src/design-system/mixins";
 import { CardProps } from "./Card";
 import { Theme } from "src/design-system/types";
-import { createUseStyles, Styles } from "react-jss";
 
 type StyleProps = Pick<
   CardProps,
@@ -14,33 +14,27 @@ type StyleProps = Pick<
   | "noShadow"
 >;
 
-type StyleClassNames = "card";
+const container = ({
+  backgroundColor,
+  marginRight,
+  marginBottom,
+  marginLeft,
+  padding,
+  fullWidth,
+  noShadow
+}: StyleProps) => (
+  theme: Theme
+) => css`
+  background-color: ${theme.colors[backgroundColor]};
+  ${fullWidth && css`width: 100%`};
+  ${noShadow && css`boxShadow: ${mixins.boxShadow()}`};
 
-const useStyles = createUseStyles<Theme, StyleClassNames>(
-  (theme: Theme): Styles<StyleClassNames> => ({
-    card: ({
-      backgroundColor,
-      marginRight,
-      marginBottom,
-      marginLeft,
-      padding,
-      fullWidth,
-      noShadow
-    }: StyleProps) => ({
-      ...mixins.spacings(theme)({
-        marginRight,
-        marginBottom,
-        marginLeft,
-        padding
-      }),
-      borderRadius: "2px",
-      backgroundColor: theme.colors[backgroundColor],
-      display: "flex",
-      flexDirection: "column",
-      ...(fullWidth && { width: '100%' }),
-      ...(!noShadow && { boxShadow: mixins.boxShadow() })
-    })
-  })
-);
+  ${mixins.spacings({
+    marginRight,
+    marginBottom,
+    marginLeft,
+    padding
+  })(theme)}
+`;
 
-export default useStyles;
+export { container };
