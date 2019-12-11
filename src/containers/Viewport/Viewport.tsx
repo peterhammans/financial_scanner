@@ -1,6 +1,5 @@
 import React from "react";
 import { theme } from "src/design-system/theme";
-import { Breakpoint } from "src/design-system/types";
 import { CSS } from "src/helpers";
 
 export interface ViewportProps {
@@ -20,50 +19,63 @@ class Viewport extends React.Component<Props, State> {
     viewportWidth: window.innerWidth
   };
 
-  queries: Partial<Record<Breakpoint, MediaQueryList>> = {};
+  queries: {
+    xs: MediaQueryList,
+    sm: MediaQueryList,
+    md: MediaQueryList,
+    lg: MediaQueryList,
+    xl: MediaQueryList
+  } | undefined = undefined;
 
   constructor(props: Props) {
     super(props);
 
     const { breakpoints: { values: breakpointValues } } = theme;
 
-    Object.keys(breakpointValues).forEach(
-      (breakpoint: string, index: number) => {
-        if (this.queries) {
-          const nextBreakpoint = Object.keys(breakpointValues)[index + 1];
-          console.log('Next breakpoint', nextBreakpoint);
-          const maxWidth = nextBreakpoint
-            ? ` and (max-width: ${CSS.px(
-              breakpointValues[nextBreakpoint as Breakpoint] - 1
-              )})`
-            : '';
-
-          this.queries[breakpoint as Breakpoint] = window.matchMedia(`
-          (min-width: ${CSS.px(
-            breakpointValues[breakpoint as Breakpoint]
-          )})${maxWidth}
-        `);
-        }
-      }
-    );
+    this.queries = {
+      xs: this.mediaQueryBetween(breakpointValues.xs, breakpointValues.sm),
+      sm: this.mediaQueryBetween(breakpointValues.sm, breakpointValues.md),
+      md: this.mediaQueryBetween(breakpointValues.md, breakpointValues.lg),
+      lg: this.mediaQueryBetween(breakpointValues.lg, breakpointValues.xl),
+      xl: this.mediaQueryBetween(breakpointValues.xl)
+    }
   }
 
   componentWillMount() {
-    Object.keys(this.queries).forEach((breakpoint: string) => {
-      const queryList = this.queries[breakpoint as Breakpoint];
-      if (queryList) {
-        queryList.addListener(this.updateDimensions);
-      }
-    });
+    if (this.queries) {
+      this.queries.xs.addListener(this.updateDimensions);
+      this.queries.sm.addListener(this.updateDimensions);
+      this.queries.md.addListener(this.updateDimensions);
+      this.queries.lg.addListener(this.updateDimensions);
+      this.queries.xl.addListener(this.updateDimensions);
+    }
   }
 
   componentWillUnmount() {
-    Object.keys(this.queries).forEach((breakpoint: string) => {
-      const queryList = this.queries[breakpoint as Breakpoint];
-      if (queryList) {
-        queryList.removeListener(this.updateDimensions);
-      }
-    });
+    if (this.queries) {
+      this.queries.xs.removeListener(this.updateDimensions);
+      this.queries.sm.removeListener(this.updateDimensions);
+      this.queries.md.removeListener(this.updateDimensions);
+      this.queries.lg.removeListener(this.updateDimensions);
+      this.queries.xl.removeListener(this.updateDimensions);
+    }
+  }
+
+  mediaQueryBetween = (breakpoint: number, nextBreakpoint?: number) => {
+    let maxWidth = '';
+    if(nextBreakpoint) {
+      maxWidth = nextBreakpoint
+        ? ` and (max-width: ${CSS.px(
+          nextBreakpoint - 1
+        )})`
+      : '';
+    }
+
+    return window.matchMedia(`
+      (min-width: ${CSS.px(
+        breakpoint
+      )})${maxWidth}
+    `);
   }
 
   updateDimensions = (e: any) => {

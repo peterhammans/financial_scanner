@@ -1,6 +1,6 @@
+import { css } from '@emotion/core';
 import * as mixins from "src/design-system/mixins";
 import { TextProps } from "./Text";
-import { createUseStyles, Styles } from "react-jss";
 import { Theme } from "src/design-system/types";
 
 type StyleProps = Pick<
@@ -8,26 +8,20 @@ type StyleProps = Pick<
   "color" | "marginRight" | "marginBottom" | "marginLeft" | "fontSize"
 >;
 
-type StyleClassNames = "text";
+const text = ({ color, marginRight, marginBottom, marginLeft, fontSize }: StyleProps) => (theme: Theme) => css`
+  ${mixins.spacings({
+    marginRight,
+    marginBottom,
+    marginLeft
+  })(theme)}
 
-const useStyles = createUseStyles<Theme, StyleClassNames>(
-  (theme: Theme): Styles<StyleClassNames> => ({
-    text: ({
-      marginRight,
-      marginBottom,
-      marginLeft,
-      fontSize,
-      color
-    }: StyleProps) => ({
-      ...mixins.spacings(theme)({
-        marginRight,
-        marginBottom,
-        marginLeft
-      }),
-      ...mixins.responsive(theme)(theme.typography.sizes, { fontSize }),
-      color: theme.colors[color]
-    })
-  })
-);
+  ${mixins.responsive(fontSize, (rule) => css`
+    font-size: ${theme.typography.sizes[rule]}px;
+  `)(theme)}
 
-export default useStyles;
+  color: ${theme.colors[color]};
+`;
+
+export {
+  text
+};

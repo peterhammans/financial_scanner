@@ -1,5 +1,3 @@
-export type Breakpoint = 'xs' | 'sm' | 'md' | 'lg' | 'xl';
-
 export type ResponsiveStyleProps = Record<
   string,
   Record<
@@ -15,9 +13,17 @@ export type SpacingProps = 'marginTop' | 'marginRight' | 'marginBottom' | 'margi
 
 export type Colors = 'dark' | 'light' | 'success' | 'warning' | 'error' | 'grey20' | 'grey5' | 'accent' | 'transparent';
 
-export type Responsive<T> = Record<Breakpoint, T> | T;
+export type Responsive<T> = Breakpoints<T> | T;
 
 export type Normal<T = string | number | boolean> = T;
+
+export type Breakpoints<T = string | number | boolean> = {
+  xs?: Normal<T>;
+  sm?: Normal<T>;
+  md?: Normal<T>;
+  lg?: Normal<T>;
+  xl?: Normal<T>;
+}
 
 export interface Theme {
   breakpoints: {
@@ -27,9 +33,7 @@ export interface Theme {
       md: number,
       lg: number,
       xl: number
-    },
-    up(breakpoint: Breakpoint): string;
-    down(breakpoint: Breakpoint): string;
+    }
   },
   typography: {
     fontFamily: string;

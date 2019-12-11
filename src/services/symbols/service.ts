@@ -6,7 +6,7 @@ const getSymbols = () =>
       resolve({
         data: listingMock
       });
-    }, 1000);
+    }, 2000);
   });
 
 export {

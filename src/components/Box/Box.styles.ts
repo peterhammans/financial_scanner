@@ -24,7 +24,7 @@ type StyleProps = Pick<
   | "backgroundColor"
 >;
 
-const container = ({
+const box = ({
   alignItems,
   justifyContent,
   width,
@@ -69,4 +69,4 @@ const container = ({
   })(theme)}
 `;
 
-export { container };
+export { box };

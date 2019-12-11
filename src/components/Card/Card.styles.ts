@@ -14,7 +14,7 @@ type StyleProps = Pick<
   | "noShadow"
 >;
 
-const container = ({
+const card = ({
   backgroundColor,
   marginRight,
   marginBottom,
@@ -27,7 +27,7 @@ const container = ({
 ) => css`
   background-color: ${theme.colors[backgroundColor]};
   ${fullWidth && css`width: 100%`};
-  ${noShadow && css`boxShadow: ${mixins.boxShadow()}`};
+  ${!noShadow && css`box-shadow: ${mixins.boxShadow()}`};
 
   ${mixins.spacings({
     marginRight,
@@ -37,4 +37,4 @@ const container = ({
   })(theme)}
 `;
 
-export { container };
+export { card };

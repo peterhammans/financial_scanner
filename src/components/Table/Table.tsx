@@ -1,6 +1,7 @@
-import React from "react";
-import useStyles from "./Table.styles";
-import { useTheme } from 'react-jss';
+import React from 'react';
+/** @jsx jsx */
+import { css, jsx } from '@emotion/core';
+import * as styles from './Table.styles';
 import { withViewport } from "src/containers/Viewport";
 import { ViewportProps } from 'src/containers/Viewport/Viewport';
 import { isTabletUp } from "src/design-system/theme";
@@ -17,11 +18,8 @@ const Table: React.FC<TableProps> = ({
   viewportWidth,
   ...outerProps
 }) => {
-  const theme = useTheme();
-  const classes = useStyles({ theme });
-
   return isTabletUp(viewportWidth) ? (
-      <table {...outerProps} className={classes.table}>
+      <table {...outerProps} css={styles.table()}>
         {children}
       </table>
     ) : (

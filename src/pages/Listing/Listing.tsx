@@ -102,9 +102,6 @@ class Listing extends React.Component<ListingProps, State> {
               <Th><Text tagName="span">Buy</Text></Th>
             </Tr>
             {
-              !list.length && <Loading />
-            }
-            {
               list.map((symbolStats: SymbolStats) => {
                 const { symbol, avgPosition, volatility, currentTrend, currentSell, currentBuy } = symbolStats;
                 return (
@@ -120,6 +117,13 @@ class Listing extends React.Component<ListingProps, State> {
               })
             }
           </Table>
+          {
+            !list.length && (
+              <Box alignItems="center" justifyContent="center" padding="3xl">
+                <Loading />
+              </Box>
+            )
+          }
         </Card>
       </Box>
     );

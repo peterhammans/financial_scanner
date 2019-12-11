@@ -1,7 +1,8 @@
-import React from "react";
+import React from 'react';
+/** @jsx jsx */
+import { css, jsx } from '@emotion/core';
 import { Responsive, Spacings, Colors } from "src/design-system/types";
-import useStyles from "./Card.styles";
-import { useTheme } from 'react-jss';
+import * as styles from "./Card.styles";
 
 export interface RequiredProps {
   children: React.ReactNode;
@@ -30,20 +31,18 @@ const Card: React.FC<CardProps> & { defaultProps: DefaultProps } = ({
   noShadow,
   ...outerProps
 }) => {
-  const theme = useTheme();
-  const classes = useStyles({
+  const styleProps = {
     marginBottom,
     marginRight,
     marginLeft,
     backgroundColor,
     padding,
     fullWidth,
-    noShadow,
-    theme
-  });
+    noShadow
+  };
 
   return (
-    <div {...outerProps} className={classes.card}>
+    <div {...outerProps} css={styles.card(styleProps)}>
       {children}
     </div>
   );

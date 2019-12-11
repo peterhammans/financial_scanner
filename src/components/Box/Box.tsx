@@ -1,4 +1,4 @@
-import * as React from 'react';
+import React from 'react';
 /** @jsx jsx */
 import { css, jsx } from '@emotion/core';
 import { Responsive, Spacings, Colors } from "src/design-system/types";
@@ -53,7 +53,7 @@ const Box: React.FC<BoxProps> & { defaultProps: DefaultProps } = (props: BoxProp
   } = props;
 
   return (
-    <div {...outerProps} css={styles.container(props)}>
+    <div {...outerProps} css={styles.box(props)}>
       {children}
     </div>
   );

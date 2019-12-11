@@ -1,9 +1,9 @@
-import { Normal, Responsive, Spacings, Theme } from './types';
+import { Normal, Breakpoints, Spacings, Theme, Responsive } from './types';
 import { CSSInterpolation } from '@emotion/serialize';
 import { css } from '@emotion/core';
 import CSS from 'src/helpers/css';
 
-function isResponsiveProp<T>(prop: Normal<T> | Responsive<T>): prop is Responsive<T> {
+function isResponsiveProp<T>(prop: Normal<T> | Breakpoints<T>): prop is Breakpoints<T> {
   if (
     typeof prop === 'object' &&
     prop !== null &&
@@ -14,30 +14,39 @@ function isResponsiveProp<T>(prop: Normal<T> | Responsive<T>): prop is Responsiv
   return false;
 }
 
-export function responsive<T>(
-  prop: Normal<T> | Responsive<T>,
-  propHandler: (value: Normal<T>) => CSSInterpolation
-) {
-  const styles: CSSInterpolation[] = [];
-  if(isResponsiveProp(prop)) {
-    if(typeof prop.xs !== 'undefined') {
+export const responsive = <T>(prop: Normal<T> | Breakpoints<T>, propHandler: (prop: Normal<T>) => CSSInterpolation) => (theme: Theme) => {
+  const styles = [];
+  if (isResponsiveProp(prop)) {
+    if (typeof prop.xs !== 'undefined') {
       styles.push(propHandler(prop.xs));
     }
-
-    if(typeof prop.sm !== 'undefined') {
-      styles.push(propHandler(prop.sm));
+    if (typeof prop.sm !== 'undefined') {
+      styles.push(css`
+        @media (min-width: ${theme.breakpoints.values.sm}px) {
+          ${propHandler(prop.sm)}
+        }
+      `);
     }
-
-    if(typeof prop.md !== 'undefined') {
-      styles.push(propHandler(prop.md));
+    if (typeof prop.md !== 'undefined') {
+      styles.push(css`
+        @media (min-width: ${theme.breakpoints.values.md}px) {
+          ${propHandler(prop.md)}
+        }
+      `);
     }
-
-    if(typeof prop.lg !== 'undefined') {
-      styles.push(propHandler(prop.lg));
+    if (typeof prop.lg !== 'undefined') {
+      styles.push(css`
+        @media (min-width: ${theme.breakpoints.values.lg}px) {
+          ${propHandler(prop.lg)}
+        }
+      `);
     }
-
-    if(typeof prop.xl !== 'undefined') {
-      styles.push(propHandler(prop.xl));
+    if (typeof prop.xl !== 'undefined') {
+      styles.push(css`
+        @media (min-width: ${theme.breakpoints.values.xl}px) {
+          ${propHandler(prop.xl)}
+        }
+      `);
     }
   } else {
     styles.push(propHandler(prop));
@@ -72,52 +81,52 @@ export const spacings = ({
     ${margin && css`
       ${responsive(margin, (rule) => css`
         margin: ${theme.spacings[rule]}px;
-      `)}
+      `)(theme)}
     `}
     ${marginTop && css`
       ${responsive(marginTop, (rule) => css`
         margin-top: ${theme.spacings[rule]}px;
-      `)}
+      `)(theme)}
     `}
     ${marginRight && css`
       ${responsive(marginRight, (rule) => css`
         margin-right: ${theme.spacings[rule]}px;
-      `)}
+      `)(theme)}
     `}
     ${marginBottom && css`
       ${responsive(marginBottom, (rule) => css`
         margin-bottom: ${theme.spacings[rule]}px;
-      `)}
+      `)(theme)}
     `}
     ${marginLeft && css`
       ${responsive(marginLeft, (rule) => css`
         margin-left: ${theme.spacings[rule]}px;
-      `)}
+      `)(theme)}
     `}
     ${padding && css`
       ${responsive(padding, (rule) => css`
-        margin: ${theme.spacings[rule]}px;
-      `)}
+        padding: ${theme.spacings[rule]}px;
+      `)(theme)}
     `}
     ${paddingTop && css`
       ${responsive(paddingTop, (rule) => css`
-        margin-top: ${theme.spacings[rule]}px;
-      `)}
+        padding-top: ${theme.spacings[rule]}px;
+      `)(theme)}
     `}
     ${paddingRight && css`
       ${responsive(paddingRight, (rule) => css`
-        margin-right: ${theme.spacings[rule]}px;
-      `)}
+        padding-right: ${theme.spacings[rule]}px;
+      `)(theme)}
     `}
     ${paddingBottom && css`
       ${responsive(paddingBottom, (rule) => css`
-        margin-bottom: ${theme.spacings[rule]}px;
-      `)}
+        padding-bottom: ${theme.spacings[rule]}px;
+      `)(theme)}
     `}
     ${paddingLeft && css`
       ${responsive(paddingLeft, (rule) => css`
-        margin-left: ${theme.spacings[rule]}px;
-      `)}
+        padding-left: ${theme.spacings[rule]}px;
+      `)(theme)}
     `}
   `
 }

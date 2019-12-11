@@ -1,41 +1,46 @@
+import { css } from '@emotion/core';
 import * as mixins from "src/design-system/mixins";
 import { ThProps } from "./Th";
 import { TdProps } from "./Td";
-import { createUseStyles, Styles } from "react-jss";
-import { Theme } from "src/design-system/types";
+import { Theme, Responsive, Spacings } from "src/design-system/types";
 
-type StyleClassNames = 'table' | 'th' | 'td' | 'trMobile'| 'tdMobile';
+const table = () => () => css`
+  border-collapse: collapse;
+  width: 100%;
+`;
 
-const useStyles = createUseStyles<Theme, StyleClassNames>(
-  (theme: Theme): Styles<StyleClassNames> => ({
-    table: () => ({
-      borderCollapse: 'collapse'
-    }),
-    th: ({ textAlign, padding, noBorder }: Pick<ThProps, 'padding' | 'textAlign' | 'noBorder'>) => ({
-      ...mixins.spacings(theme)({
-        padding
-      }),
-      textAlign,
-      ...!noBorder && { borderBottom: `1px solid ${theme.colors.grey20}` },
-      textTransform: 'uppercase',
-      weight: 'normal'
-    }),
-    td: ({ textAlign, padding, noBorder }: Pick<TdProps, 'padding' | 'textAlign' | 'noBorder'>) => ({
-      ...mixins.spacings(theme)({
-        padding
-      }),
-      textAlign,
-      ...!noBorder && { borderBottom: `1px solid ${theme.colors.grey20}` }
-    }),
-    tdMobile: ({ padding }: Pick<TdProps, 'padding'>) => ({
-      ...mixins.spacings(theme)({
-        padding
-      })
-    }),
-    trMobile: ({ noBorder }: Pick<TdProps, 'noBorder'>) => ({
-      ...(!noBorder && { borderBottom: `1px solid ${theme.colors.grey20}` })
-    })
-  })
-);
+const th = ({ textAlign, padding, noBorder }: Pick<ThProps, 'padding' | 'textAlign' | 'noBorder'>) => (theme: Theme) => css`
+  ${mixins.spacings({
+    padding
+  })(theme)}
+  text-align: ${textAlign};
+  ${!noBorder && css`border-bottom: 1px solid ${theme.colors.grey20}`}
+  text-transform: uppercase;
+  weight: normal;
+`;
 
-export default useStyles;
+const td = ({ textAlign, padding, noBorder }: Pick<TdProps, 'padding' | 'textAlign' | 'noBorder'>) => (theme: Theme) => css`
+  ${mixins.spacings({
+    padding
+  })(theme)},
+  text-align: ${textAlign},
+  ${!noBorder && css`border-bottom: 1px solid ${theme.colors.grey20}`}
+`;
+
+const tdMobile = (padding: Responsive<Spacings>) => (theme: Theme) => css`
+  ${mixins.spacings({
+    padding
+  })(theme)}
+`
+
+const trMobile = (noBorder: boolean) => (theme: Theme) => css`
+  ${!noBorder && css`border-bottom: 1px solid ${theme.colors.grey20}`}
+`;
+
+export {
+  table,
+  th,
+  td,
+  tdMobile,
+  trMobile
+};

@@ -1,6 +1,7 @@
-import React from "react";
-import useStyles from "./Table.styles";
-import { useTheme } from 'react-jss';
+import React from 'react';
+/** @jsx jsx */
+import { css, jsx } from '@emotion/core';
+import * as styles from './Table.styles';
 import { withViewport } from "src/containers/Viewport";
 import { ViewportProps } from "src/containers/Viewport/Viewport";
 import { isTabletUp } from "../../design-system/theme";
@@ -22,9 +23,6 @@ const Tr: React.FC<TrProps> & { defaultProps: DefaultProps } = ({
   viewportWidth,
   ...outerProps
 }) => {
-  const theme = useTheme();
-  const classes = useStyles({ noBorder, theme });
-
   return isTabletUp(viewportWidth) ? (
     <tr {...outerProps}>
       {
@@ -34,7 +32,7 @@ const Tr: React.FC<TrProps> & { defaultProps: DefaultProps } = ({
       }
     </tr>
   ) : (
-    <div className={classes.trMobile}>
+    <div css={styles.trMobile(noBorder)}>
       <Card noShadow>
         {children}
       </Card>

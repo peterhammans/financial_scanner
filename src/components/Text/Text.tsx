@@ -1,7 +1,8 @@
-import React from "react";
+import React from 'react';
+/** @jsx jsx */
+import { css, jsx } from '@emotion/core';
 import { Responsive, Sizes, Spacings, Colors } from "src/design-system/types";
-import useStyles from "./Text.styles";
-import { useTheme } from 'react-jss';
+import * as styles from "./Text.styles";
 
 type TagName = 'span' | 'p' | 'div';
 
@@ -30,20 +31,18 @@ const Text: React.FC<TextProps> & { defaultProps: DefaultProps } = ({
   fontSize,
   ...outerProps
 }) => {
-  const theme = useTheme();
-  const classes = useStyles({
+  const styleProps = {
     color,
     marginBottom,
     marginRight,
     marginLeft,
-    fontSize,
-    theme
-  });
+    fontSize
+  };
 
   const Component = tagName;
 
   return (
-    <Component {...outerProps} className={classes.text}>
+    <Component {...outerProps} css={styles.text(styleProps)}>
       {children}
     </Component>
   );

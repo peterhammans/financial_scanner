@@ -1,4 +1,4 @@
-import * as React from 'react';
+import React from 'react';
 /** @jsx jsx */
 import { css, jsx } from '@emotion/core';
 import { Colors } from "src/design-system/types";
@@ -17,15 +17,13 @@ const Loading: React.FC<LoadingProps> & { defaultProps: DefaultProps } = ({
   size,
   color,
   ...outerProps
-}) => {
+}) => (
+  <div {...outerProps} css={styles.loading({ size, color })}>
+    <div />
+    <div />
+  </div>
+);
 
-  return (
-    <div {...outerProps} css={styles.container({ size, color })}>
-      <div />
-      <div />
-    </div>
-  );
-};
 
 Loading.defaultProps = {
   size: 'normal',

@@ -1,6 +1,7 @@
-import React from "react";
-import useStyles from "./Table.styles";
-import { useTheme } from 'react-jss';
+import React from 'react';
+/** @jsx jsx */
+import { css, jsx } from '@emotion/core';
+import * as styles from './Table.styles';
 import { Responsive, Spacings } from "src/design-system/types";
 import { ViewportProps } from "src/containers/Viewport/Viewport";
 import { isTabletUp } from "src/design-system/theme";
@@ -25,22 +26,17 @@ const Th: React.FC<ThProps> & { defaultProps: DefaultProps } = ({
   noBorder,
   viewportWidth,
   ...outerProps
-}) => {
-  const theme = useTheme();
-  const classes = useStyles({ textAlign, noBorder, padding, theme });
-
-  return (
-    <>
-      {
-        isTabletUp(viewportWidth) && (
-          <th {...outerProps} className={classes.th}>
-            {children}
-          </th>
-        )
-      }
-    </>
-  )
-};
+}) => (
+  <React.Fragment>
+    {
+      isTabletUp(viewportWidth) && (
+        <th {...outerProps} css={styles.th({ textAlign, padding, noBorder })}>
+          {children}
+        </th>
+      )
+    }
+  </React.Fragment>
+);
 
 Th.defaultProps = {
   textAlign: 'left',

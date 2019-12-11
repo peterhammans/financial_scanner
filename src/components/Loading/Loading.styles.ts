@@ -33,7 +33,7 @@ const pulse = (size: LoadingSize) => (theme: Theme) => keyframes`
   }
 `
 
-const container = ({ size, color }: StyleProps) => (theme: Theme) => css`
+const loading = ({ size, color }: StyleProps) => (theme: Theme) => css`
   height: ${sizeMap[size]}px;
   width: ${sizeMap[size]}px;
   display: inline-block;
@@ -53,5 +53,5 @@ const container = ({ size, color }: StyleProps) => (theme: Theme) => css`
 `;
 
 export {
-  container
+  loading
 };
