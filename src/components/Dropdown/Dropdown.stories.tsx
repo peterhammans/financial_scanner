@@ -16,7 +16,7 @@ storiesOf('Dropdown', module)
       const containerRef = React.createRef<HTMLDivElement>();
 
       return (
-        <div ref={containerRef}>
+        <span ref={containerRef}>
           <DropdownManager>
             <DropdownReference>
               {({ ref }) => (
@@ -38,7 +38,7 @@ storiesOf('Dropdown', module)
               }}
             </DropdownPopper>
           </DropdownManager >
-        </div>
+        </span>
       )
     })
   });

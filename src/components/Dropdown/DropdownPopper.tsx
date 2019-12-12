@@ -2,7 +2,7 @@ import React from 'react';
 import { Popper, PopperProps } from 'react-popper';
 
 interface DefaultProps {
-  containerRef?: any;
+  containerRef?: React.RefObject<any>;
   onClickOutside?: () => void;
 }
 
