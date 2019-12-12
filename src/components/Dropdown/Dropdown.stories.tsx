@@ -5,7 +5,8 @@ import { storiesOf } from '@storybook/react';
 import DropdownManager from './DropdownManager';
 import DropdownReference from './DropdownReference';
 import DropdownPopper from './DropdownPopper';
-import { Popper } from 'react-popper';
+import { Text } from 'src/components/Text';
+import { Box } from 'src/components/Box';
 
 storiesOf('Dropdown', module)
   .addDecorator(story => <StoryDecorator>{story()}</StoryDecorator>)
@@ -32,7 +33,9 @@ storiesOf('Dropdown', module)
               {({ placement, ref, style }) => {
                 return open && (
                   <div ref={ref} style={style} data-placement={placement}>
-                    Popper
+                    <Box backgroundColor="dark">
+                      <Text>Popper</Text>
+                    </Box>
                   </div>
                 )
               }}
