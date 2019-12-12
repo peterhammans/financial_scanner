@@ -10,11 +10,11 @@ export interface State {
   viewportWidth: number;
 }
 
-export interface Props {
+export interface ViewportProps {
   children({ viewportWidth }: ViewportProps): React.ReactElement;
 }
 
-class Viewport extends React.Component<Props, State> {
+class Viewport extends React.Component<ViewportProps, State> {
   state = {
     viewportWidth: window.innerWidth
   };
