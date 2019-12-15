@@ -1,3 +1,4 @@
+import { Global, css } from '@emotion/core';
 import React from "react";
 import { ThemeProvider } from 'emotion-theming';
 import { Provider } from 'react-redux';
@@ -12,6 +13,12 @@ const store = configureStore();
 const App: React.FC = () => {
   return (
     <ThemeProvider theme={theme}>
+      <Global styles={css`
+        body {
+          font-family: ${theme.typography.fontFamily};
+          font-size: ${theme.typography.sizes.md}px;
+        }
+      `} />
       <Provider store={store}>
         <Router>
           <Route path="/listing" component={Listing} />

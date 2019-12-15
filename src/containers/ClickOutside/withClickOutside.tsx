@@ -1,14 +1,18 @@
 import * as React from 'react';
+import { Subtract } from 'utility-types';
 
 export interface WithClickOutsideProps {
   onClickOutside: () => void;
   containerRef: React.RefObject<any>;
 }
 
-const withClickOutside = <P extends WithClickOutsideProps>(
-  WrappedComponent: any
-) => {
-  class WithClickOutside extends React.Component<P> {
+const withClickOutside = <
+  P extends React.ComponentType<React.ComponentProps<P> & WithClickOutsideProps>,
+  ResolvedProps = React.ComponentProps<P> & WithClickOutsideProps
+  >(
+    WrappedComponent: P
+  ) => {
+  class WithClickOutside extends React.Component<ResolvedProps & WithClickOutsideProps> {
     static displayName: string
 
     componentDidMount() {
@@ -27,7 +31,11 @@ const withClickOutside = <P extends WithClickOutsideProps>(
     }
 
     render() {
-      return <WrappedComponent {...this.props} />
+      return (
+        <WrappedComponent
+          {...(this.props as JSX.LibraryManagedAttributes<P, React.ComponentProps<P>>)}
+        />
+      );
     }
   }
 
@@ -35,7 +43,7 @@ const withClickOutside = <P extends WithClickOutsideProps>(
     WrappedComponent.name ||
     'Component'})`
 
-  return WrappedComponent;
+  return WithClickOutside;
 }
 
 export default withClickOutside;
