@@ -3,8 +3,15 @@ import { Global, css } from '@emotion/core';
 import { ThemeProvider } from "emotion-theming";
 import { theme } from "src/design-system/theme";
 
+import { Provider } from 'react-redux';
+
+import configureStore from "src/store/configureStore";
+
+const store = configureStore();
+
 export const themeDecorator = (storyFn: any) => (
   <ThemeProvider theme={theme}>
+    <div id="modal-root" />
     <Global styles={css`
         body {
           font-family: ${theme.typography.fontFamily};
@@ -20,7 +27,7 @@ export const themeDecorator = (storyFn: any) => (
           }
         }
     `} />
-    {storyFn()}
+    <Provider store={store}>{storyFn()}</Provider>
   </ThemeProvider>
 );
 

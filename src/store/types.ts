@@ -1,5 +1,7 @@
-import { State } from 'src/pages/Listing/redux/types';
+import { ListingsState } from 'src/pages/Listing/redux/types';
+import { ModalsState } from './modals/types';
 
 export interface AppState {
-  listings: State;
+  listings: ListingsState;
+  modals: ModalsState;
 }

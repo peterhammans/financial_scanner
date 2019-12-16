@@ -10,7 +10,7 @@ export interface SymbolStats {
   traded?: Traded;
 }
 
-export interface State {
+export interface ListingsState {
   symbols: {
     list: SymbolStats[];
     loading: boolean;

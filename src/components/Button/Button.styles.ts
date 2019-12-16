@@ -20,6 +20,44 @@ const button = ({ marginRight, marginBottom, marginLeft, variant, size }: StyleP
     marginBottom,
     marginLeft,
   })(theme)}
+
+  border: none;
+  border-radius: 3px;
+
+  ${variant === 'primary' &&
+  css`
+      background: ${theme.colors.accent};
+      color: ${theme.colors.light};
+    `
+  }
+  ${variant === 'secondary' &&
+  css`
+      background: ${theme.colors.dark};
+      color: ${theme.colors.light};
+    `
+  }
+  ${size === 'large' &&
+  css`
+  padding: ${theme.spacings.md}px ${theme.spacings.xl}px;
+  font-size: ${theme.typography.sizes.lg}px;
+    `
+  }
+  ${size === 'normal' &&
+  css`
+      padding: ${theme.spacings.sm}px ${theme.spacings.lg}px;
+      font-size: ${theme.typography.sizes.md}px;
+    `
+  }
+  ${size === 'small' &&
+  css`
+    padding: ${theme.spacings.xs}px ${theme.spacings.md}px;
+    font-size: ${theme.typography.sizes.sm}px;
+    `
+  }
+
+  &:not([disabled]):hover {
+    cursor: pointer;
+  }
 `;
 
 export { button };

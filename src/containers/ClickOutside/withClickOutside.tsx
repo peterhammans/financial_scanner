@@ -8,7 +8,7 @@ export interface WithClickOutsideProps {
 
 const withClickOutside = <
   P extends React.ComponentType<React.ComponentProps<P> & WithClickOutsideProps>,
-  ResolvedProps = React.ComponentProps<P> & WithClickOutsideProps
+  ResolvedProps = React.ComponentProps<P>
   >(
     WrappedComponent: P
   ) => {

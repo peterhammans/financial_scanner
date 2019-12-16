@@ -3,10 +3,10 @@ import { createReducer } from 'src/store/utils';
 import {
   getSymbols
 } from './actions';
-import { State, SymbolStats } from './types';
+import { ListingsState, SymbolStats } from './types';
 import { Err } from 'src/types';
 
-const initialState: State = {
+const initialListingsState: ListingsState = {
   symbols: {
     list: [],
     loading: false,
@@ -14,7 +14,7 @@ const initialState: State = {
   }
 };
 
-const getSymbolsRequest = (state: State): State => ({
+const getSymbolsRequest = (state: ListingsState): ListingsState => ({
   ...state,
   symbols: {
     ...state.symbols,
@@ -23,9 +23,9 @@ const getSymbolsRequest = (state: State): State => ({
 });
 
 const getSymbolsSuccess = (
-  state: State,
+  state: ListingsState,
   { payload: { items } }: { payload: { items: SymbolStats[] } }
-): State => ({
+): ListingsState => ({
   ...state,
   symbols: {
     ...state.symbols,
@@ -35,9 +35,9 @@ const getSymbolsSuccess = (
 });
 
 const getSymbolsFailure = (
-  state: State,
+  state: ListingsState,
   { payload: { error } }: { payload: { error: Err } }
-): State => ({
+): ListingsState => ({
   ...state,
   symbols: {
     ...state.symbols,
@@ -45,7 +45,7 @@ const getSymbolsFailure = (
   }
 });
 
-const getSymbolsFullfill = (state: State): State => ({
+const getSymbolsFullfill = (state: ListingsState): ListingsState => ({
   ...state,
   symbols: {
     ...state.symbols,
@@ -53,7 +53,7 @@ const getSymbolsFullfill = (state: State): State => ({
   }
 });
 
-const listingReducer = createReducer(initialState, {
+const listingReducer = createReducer(initialListingsState, {
   [getSymbols.REQUEST]: getSymbolsRequest,
   [getSymbols.SUCCESS]: getSymbolsSuccess,
   [getSymbols.FAILURE]: getSymbolsFailure,
