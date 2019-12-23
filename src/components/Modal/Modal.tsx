@@ -10,9 +10,15 @@ import { modalsActions } from 'src/store/modals';
 
 import * as styles from './Modal.styles';
 
+type RenderChildren = (data: { hide: () => void }) => React.ReactNode;
+
+function isChildrenOfRightType(children: any): children is RenderChildren {
+  return typeof children === 'function';
+}
+
 interface RequiredProps {
   name: string;
-  children: React.ReactNode | ((data: { hide: () => void }) => React.ReactNode);
+  children: React.ReactNode | RenderChildren;
   modals: {
     [name: string]: boolean;
   };
@@ -78,7 +84,9 @@ class Modal extends React.PureComponent<ModalProps> {
     const modal = ReactDOM.createPortal(
       <div css={styles.container()} onClick={this.hide}>
         <div css={styles.modal()} onClick={this.stopPropagation}>
-          {typeof children === 'function' ? children({ hide: this.hide }) : children}
+          {isChildrenOfRightType(children)
+            ? children({ hide: this.hide })
+            : children}
         </div>
       </div>,
       this.el
@@ -99,7 +107,4 @@ const mapStateToProps = (state: AppState): Pick<ModalProps, 'modals'> => ({
 
 export { Modal as UnwrappedModal };
 
-export default connect(
-  mapStateToProps,
-  modalsActions
-)(Modal);
+export default connect(mapStateToProps, modalsActions)(Modal);

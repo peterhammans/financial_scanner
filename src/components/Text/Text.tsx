@@ -1,8 +1,8 @@
 import React from 'react';
 /** @jsx jsx */
-import { css, jsx } from '@emotion/core';
-import { Responsive, Sizes, Spacings, Colors } from "src/design-system/types";
-import * as styles from "./Text.styles";
+import { jsx } from '@emotion/core';
+import { Responsive, Sizes, Spacings, Colors } from 'src/design-system/types';
+import * as styles from './Text.styles';
 
 type TagName = 'span' | 'p' | 'div';
 
@@ -49,9 +49,9 @@ const Text: React.FC<TextProps> & { defaultProps: DefaultProps } = ({
 };
 
 Text.defaultProps = {
-  tagName: "p",
-  color: "dark",
-  fontSize: "md"
+  tagName: 'p',
+  color: 'dark',
+  fontSize: 'md'
 };
 
 export default Text;

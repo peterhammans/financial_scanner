@@ -1,8 +1,8 @@
 import React from 'react';
 /** @jsx jsx */
 import { css, jsx } from '@emotion/core';
-import { Responsive, Spacings, Colors } from "src/design-system/types";
-import * as styles from "./Box.styles";
+import { Responsive, Spacings, Colors } from 'src/design-system/types';
+import * as styles from './Box.styles';
 
 interface RequiredProps {
   children: React.ReactNode;
@@ -15,6 +15,7 @@ interface DefaultProps {
   alignItems: 'flex-start' | 'center' | 'flex-end';
   width: string;
   backgroundColor: Colors;
+  guttering?: Responsive<Spacings>;
   grow?: number;
   marginTop?: Responsive<Spacings>;
   marginRight?: Responsive<Spacings>;
@@ -30,7 +31,9 @@ interface DefaultProps {
 
 export type BoxProps = RequiredProps & DefaultProps;
 
-const Box: React.FC<BoxProps> & { defaultProps: DefaultProps } = (props: BoxProps) => {
+const Box: React.FC<BoxProps> & { defaultProps: DefaultProps } = (
+  props: BoxProps
+) => {
   const {
     children,
     marginRight,
@@ -48,13 +51,16 @@ const Box: React.FC<BoxProps> & { defaultProps: DefaultProps } = (props: BoxProp
     width,
     wrap,
     direction,
+    guttering,
     backgroundColor,
     ...outerProps
   } = props;
 
   return (
     <div {...outerProps} css={styles.box(props)}>
-      {children}
+      {React.Children.toArray(children).map(child => (
+        <div css={styles.innerBox(props)}>{child}</div>
+      ))}
     </div>
   );
 };

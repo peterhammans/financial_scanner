@@ -30,6 +30,10 @@
     "no-underscore-dangle": "off",
     "spaced-comment": "off",
     "react/no-children-prop": "off",
+    "import/extensions": {
+      "ts": "always",
+      "tsx": "always"
+    },
     "import/no-extraneous-dependencies": [
       "error",
       {
