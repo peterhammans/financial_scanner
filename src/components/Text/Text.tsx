@@ -17,6 +17,7 @@ interface DefaultProps {
   marginRight?: Responsive<Spacings>;
   marginBottom?: Responsive<Spacings>;
   marginLeft?: Responsive<Spacings>;
+  lineHeight?: number;
 }
 
 export type TextProps = RequiredProps & DefaultProps;
@@ -29,6 +30,7 @@ const Text: React.FC<TextProps> & { defaultProps: DefaultProps } = ({
   marginBottom,
   marginLeft,
   fontSize,
+  lineHeight,
   ...outerProps
 }) => {
   const styleProps = {
@@ -36,7 +38,8 @@ const Text: React.FC<TextProps> & { defaultProps: DefaultProps } = ({
     marginBottom,
     marginRight,
     marginLeft,
-    fontSize
+    fontSize,
+    lineHeight
   };
 
   const Component = tagName;

@@ -4,7 +4,6 @@ import { storiesOf } from '@storybook/react';
 
 import Box from './Box';
 import { Card } from '../Card';
-import { Text } from '../Text';
 
 storiesOf('Box', module)
   .addDecorator(story => <StoryDecorator>{story()}</StoryDecorator>)

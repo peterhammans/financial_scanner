@@ -8,8 +8,9 @@ import { Box } from '../Box';
 storiesOf('Loading', module)
   .addDecorator(story => <StoryDecorator>{story()}</StoryDecorator>)
   .addDecorator(themeDecorator)
+  .addDecorator(story => <div className="center-col">{story()}</div>)
   .add('Sizes', () => (
-    <Box justifyContent="center" alignItems="center" direction="column">
+    <>
       <Box marginBottom="lg" width="auto">
         <Loading size="small" />
       </Box>
@@ -19,15 +20,15 @@ storiesOf('Loading', module)
       <Box marginBottom="lg" width="auto">
         <Loading size="big" />
       </Box>
-    </Box>
+    </>
   ))
   .add('Colors', () => (
-    <Box justifyContent="center" alignItems="center" direction="column">
+    <>
       <Box marginBottom="lg" width="auto">
         <Loading color="dark" />
       </Box>
       <Box marginBottom="lg" width="auto">
         <Loading color="accent" />
       </Box>
-    </Box>
-  ));;
+    </>
+  ));

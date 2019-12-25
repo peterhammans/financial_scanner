@@ -5,7 +5,12 @@ import { Theme } from 'src/design-system/types';
 
 type StyleProps = Pick<
   TextProps,
-  'color' | 'marginRight' | 'marginBottom' | 'marginLeft' | 'fontSize'
+  | 'color'
+  | 'marginRight'
+  | 'marginBottom'
+  | 'marginLeft'
+  | 'fontSize'
+  | 'lineHeight'
 >;
 
 const text = ({
@@ -13,7 +18,8 @@ const text = ({
   marginRight,
   marginBottom,
   marginLeft,
-  fontSize
+  fontSize,
+  lineHeight
 }: StyleProps) => (theme: Theme) => css`
   margin: 0;
   
@@ -31,6 +37,11 @@ const text = ({
   )(theme)}
 
   color: ${theme.colors[color]};
+
+  ${lineHeight &&
+    css`
+      line-height: ${lineHeight};
+    `}
 `;
 
 export { text };
