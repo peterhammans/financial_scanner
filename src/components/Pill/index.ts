@@ -1,3 +1,3 @@
-import Card from './Card';
+import Pill from './Pill';
 
-export { Card };
+export { Pill };
