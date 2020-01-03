@@ -1,17 +1,13 @@
-import React from "react";
-import { theme } from "src/design-system/theme";
-import { CSS } from "src/helpers";
-
-export interface ViewportProps {
-  viewportWidth: number;
-}
+import React from 'react';
+import { theme } from 'src/design-system/theme';
+import { CSS } from 'src/helpers';
 
 export interface State {
   viewportWidth: number;
 }
 
 export interface ViewportProps {
-  children({ viewportWidth }: ViewportProps): React.ReactElement;
+  children({ viewportWidth }: State): React.ReactElement;
 }
 
 class Viewport extends React.Component<ViewportProps, State> {
@@ -19,18 +15,22 @@ class Viewport extends React.Component<ViewportProps, State> {
     viewportWidth: window.innerWidth
   };
 
-  queries: {
-    xs: MediaQueryList,
-    sm: MediaQueryList,
-    md: MediaQueryList,
-    lg: MediaQueryList,
-    xl: MediaQueryList
-  } | undefined = undefined;
+  queries:
+    | {
+        xs: MediaQueryList;
+        sm: MediaQueryList;
+        md: MediaQueryList;
+        lg: MediaQueryList;
+        xl: MediaQueryList;
+      }
+    | undefined = undefined;
 
-  constructor(props: Props) {
+  constructor(props: ViewportProps) {
     super(props);
 
-    const { breakpoints: { values: breakpointValues } } = theme;
+    const {
+      breakpoints: { values: breakpointValues }
+    } = theme;
 
     this.queries = {
       xs: this.mediaQueryBetween(breakpointValues.xs, breakpointValues.sm),
@@ -38,7 +38,7 @@ class Viewport extends React.Component<ViewportProps, State> {
       md: this.mediaQueryBetween(breakpointValues.md, breakpointValues.lg),
       lg: this.mediaQueryBetween(breakpointValues.lg, breakpointValues.xl),
       xl: this.mediaQueryBetween(breakpointValues.xl)
-    }
+    };
   }
 
   componentWillMount() {
@@ -63,20 +63,16 @@ class Viewport extends React.Component<ViewportProps, State> {
 
   mediaQueryBetween = (breakpoint: number, nextBreakpoint?: number) => {
     let maxWidth = '';
-    if(nextBreakpoint) {
+    if (nextBreakpoint) {
       maxWidth = nextBreakpoint
-        ? ` and (max-width: ${CSS.px(
-          nextBreakpoint - 1
-        )})`
-      : '';
+        ? ` and (max-width: ${CSS.px(nextBreakpoint - 1)})`
+        : '';
     }
 
     return window.matchMedia(`
-      (min-width: ${CSS.px(
-        breakpoint
-      )})${maxWidth}
+      (min-width: ${CSS.px(breakpoint)})${maxWidth}
     `);
-  }
+  };
 
   updateDimensions = (e: any) => {
     if (e.matches) {

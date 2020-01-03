@@ -6,14 +6,9 @@ export interface WithClickOutsideProps {
   containerRef: React.RefObject<any>;
 }
 
-const withClickOutside = <
-  P extends React.ComponentType<React.ComponentProps<P> & WithClickOutsideProps>,
-  ResolvedProps = React.ComponentProps<P>
-  >(
-    WrappedComponent: P
-  ) => {
-  class WithClickOutside extends React.Component<ResolvedProps & WithClickOutsideProps> {
-    static displayName: string
+const withClickOutside = (WrappedComponent: any) => {
+  class WithClickOutside extends React.Component<any> {
+    static displayName: string;
 
     componentDidMount() {
       document.addEventListener('click', this.handleOutsideClick, false);
@@ -28,22 +23,18 @@ const withClickOutside = <
       if (!containerRef.current.contains(e.target)) {
         onClickOutside();
       }
-    }
+    };
 
     render() {
-      return (
-        <WrappedComponent
-          {...(this.props as JSX.LibraryManagedAttributes<P, React.ComponentProps<P>>)}
-        />
-      );
+      return <WrappedComponent {...this.props} />;
     }
   }
 
   WithClickOutside.displayName = `WithClickOutside(${WrappedComponent.displayName ||
     WrappedComponent.name ||
-    'Component'})`
+    'Component'})`;
 
   return WithClickOutside;
-}
+};
 
 export default withClickOutside;

@@ -3,7 +3,6 @@ import React from 'react';
 import { css, jsx } from '@emotion/core';
 import * as styles from './Table.styles';
 import { withViewport } from 'src/containers/Viewport';
-import { ViewportProps } from 'src/containers/Viewport/Viewport';
 import { isTabletUp } from 'src/design-system/theme';
 
 interface RequiredProps {
