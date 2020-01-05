@@ -14,7 +14,9 @@ interface DefaultProps {
   justifyContent: 'flex-start' | 'center' | 'flex-end';
   alignItems: 'flex-start' | 'center' | 'flex-end';
   width: string;
+  height: string;
   backgroundColor: Colors;
+  column?: Responsive<number>;
   guttering?: Responsive<Spacings>;
   grow?: number;
   marginTop?: Responsive<Spacings>;
@@ -49,21 +51,32 @@ const Box: React.FC<BoxProps> & { defaultProps: DefaultProps } = (
     alignItems,
     grow,
     width,
+    height,
     wrap,
     direction,
     guttering,
     backgroundColor,
+    column,
     ...outerProps
   } = props;
 
   return (
     <div {...outerProps} css={styles.box(props)}>
-      {React.Children.toArray(children).map(child => (
-        <div css={styles.innerBox(props)}>{child}</div>
-      ))}
+      {React.Children.map(children, child => {
+        if (
+          !React.isValidElement(child) ||
+          child.type === 'Box' ||
+          (typeof child.type !== 'string' && child.type.name === 'Box')
+        ) {
+          return child;
+        }
+        return <div css={styles.innerBox(props)}>{child}</div>;
+      })}
     </div>
   );
 };
+
+Box.displayName = 'Box';
 
 Box.defaultProps = {
   direction: 'row',
@@ -71,6 +84,7 @@ Box.defaultProps = {
   justifyContent: 'flex-start',
   alignItems: 'flex-start',
   width: '100%',
+  height: 'auto',
   backgroundColor: 'transparent'
 };
 

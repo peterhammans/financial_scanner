@@ -10,6 +10,7 @@ type StyleProps = Pick<
   | 'marginBottom'
   | 'marginLeft'
   | 'fontSize'
+  | 'fontWeight'
   | 'lineHeight'
 >;
 
@@ -19,9 +20,11 @@ const text = ({
   marginBottom,
   marginLeft,
   fontSize,
+  fontWeight,
   lineHeight
 }: StyleProps) => (theme: Theme) => css`
   margin: 0;
+  font-weight: ${fontWeight};
   
   ${mixins.spacings({
     marginRight,

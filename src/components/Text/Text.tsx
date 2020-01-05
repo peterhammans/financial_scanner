@@ -14,6 +14,7 @@ interface DefaultProps {
   tagName: TagName;
   color: Colors;
   fontSize: Responsive<Sizes>;
+  fontWeight: 'bold' | 'normal';
   marginRight?: Responsive<Spacings>;
   marginBottom?: Responsive<Spacings>;
   marginLeft?: Responsive<Spacings>;
@@ -30,6 +31,7 @@ const Text: React.FC<TextProps> & { defaultProps: DefaultProps } = ({
   marginBottom,
   marginLeft,
   fontSize,
+  fontWeight,
   lineHeight,
   ...outerProps
 }) => {
@@ -39,6 +41,7 @@ const Text: React.FC<TextProps> & { defaultProps: DefaultProps } = ({
     marginRight,
     marginLeft,
     fontSize,
+    fontWeight,
     lineHeight
   };
 
@@ -54,7 +57,8 @@ const Text: React.FC<TextProps> & { defaultProps: DefaultProps } = ({
 Text.defaultProps = {
   tagName: 'p',
   color: 'dark',
-  fontSize: 'md'
+  fontSize: 'md',
+  fontWeight: 'normal'
 };
 
 export default Text;

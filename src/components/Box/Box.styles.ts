@@ -23,6 +23,8 @@ type BoxStyleProps = Pick<
   | 'alignItems'
   | 'backgroundColor'
   | 'guttering'
+  | 'height'
+  | 'column'
 >;
 
 type BoxInnerStyleProps = Pick<BoxProps, 'guttering'>;
@@ -45,7 +47,9 @@ const box = ({
   paddingRight,
   paddingBottom,
   paddingLeft,
-  guttering
+  guttering,
+  height,
+  column
 }: BoxStyleProps) => (theme: Theme) => css`
   display: flex;
   box-sizing: border-box;
@@ -54,8 +58,21 @@ const box = ({
   flex-grow: ${grow};
   background-color: ${theme.colors[backgroundColor]};
   width: ${width};
+  height: ${height};
   justify-content: ${justifyContent};
   align-items: ${alignItems};
+
+  ${column &&
+    mixins.responsive(
+      column,
+      rule => css`
+        width: calc(${rule / theme.grid} * 100%);
+        padding-left: ${theme.spacings.md}px;
+        padding-right: ${theme.spacings.md}px;
+        margin-left: -${theme.spacings.md / 2}px;
+        margin-right: -${theme.spacings.md / 2}px;
+      `
+    )(theme)}
 
   ${guttering &&
     mixins.responsive(
@@ -93,9 +110,7 @@ const innerBox = ({ guttering }: BoxInnerStyleProps) => (theme: Theme) => css`
       `
     )(theme)}
 
-  display: flex;
-  flex-direction: column;
-  width: 100%;
+  flex-grow: 1;
 `;
 
 export { box, innerBox };

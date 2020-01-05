@@ -14,17 +14,18 @@ storiesOf('Box', module)
         <Card>Col 1</Card>
         <Card>Col 2</Card>
       </Box>
-      <Box guttering="md" marginBottom="md">
-        <Box>
-          <Card>Col 1</Card>
-        </Box>
-        <Box guttering="md">
-          <Card>Col 2</Card>
-          <Card>Col 3</Card>
-        </Box>
+    </Box>
+  ))
+  .add('Grid', () => (
+    <Box>
+      <Box column={2}>
+        <Card>Col 2</Card>
       </Box>
-      <Box>
-        <Card>Row 1</Card>
+      <Box column={8}>
+        <Card>Col 2</Card>
+      </Box>
+      <Box column={2}>
+        <Card>Col 2</Card>
       </Box>
     </Box>
   ));
