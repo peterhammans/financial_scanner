@@ -16,6 +16,7 @@ interface DefaultProps {
   width: string;
   height: string;
   backgroundColor: Colors;
+  row: boolean;
   column?: Responsive<number>;
   guttering?: Responsive<Spacings>;
   grow?: number;
@@ -79,6 +80,7 @@ const Box: React.FC<BoxProps> & { defaultProps: DefaultProps } = (
 Box.displayName = 'Box';
 
 Box.defaultProps = {
+  row: false,
   direction: 'row',
   wrap: 'nowrap',
   justifyContent: 'flex-start',
