@@ -1,18 +1,20 @@
 import React from 'react';
 import { Global, css } from '@emotion/core';
-import { ThemeProvider } from "emotion-theming";
-import { theme } from "src/design-system/theme";
+import { ThemeProvider } from 'emotion-theming';
+import { theme } from 'src/design-system/theme';
 
 import { Provider } from 'react-redux';
 
-import configureStore from "src/store/configureStore";
+import configureStore from 'src/store/configureStore';
 
 const store = configureStore();
 
 export const themeDecorator = (storyFn: any) => (
   <ThemeProvider theme={theme}>
     <div id="modal-root" />
-    <Global styles={css`
+    <div id="notifications-root" />
+    <Global
+      styles={css`
         body {
           font-family: ${theme.typography.fontFamily};
           font-size: ${theme.typography.sizes.md}px;
@@ -26,16 +28,25 @@ export const themeDecorator = (storyFn: any) => (
             flex-direction: column;
           }
         }
-    `} />
+
+        #notifications-root {
+          position: fixed;
+          bottom: 0;
+          right: 10%;
+        }
+      `}
+    />
     <Provider store={store}>{storyFn()}</Provider>
   </ThemeProvider>
 );
 
 export const StoryDecorator = ({ children }: { children: React.ReactNode }) => (
-  <div style={{
-    background: '#f2f2f2',
-    padding: '24px'
-  }}>
+  <div
+    style={{
+      background: '#f2f2f2',
+      padding: '24px'
+    }}
+  >
     {children}
   </div>
 );

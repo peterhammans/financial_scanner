@@ -1,4 +1,5 @@
 import { Theme } from './types';
+import Color from 'color';
 
 export const isMobile = (viewportWidth: number) => {
   const {
@@ -88,8 +89,17 @@ export const theme: Theme = {
     grey20: '#ccc',
     grey5: '#f2f2f2',
     success: '#24a148',
+    success50: Color('#24a148')
+      .lighten(1.2)
+      .hex(),
     warning: '#FFB43E',
+    warning50: Color('#FFB43E')
+      .lighten(0.5)
+      .hex(),
     error: '#d82121',
+    error50: Color('#d82121')
+      .lighten(0.8)
+      .hex(),
     transparent: 'transparent'
   },
   spacings: {
