@@ -13,43 +13,75 @@ storiesOf('Dropdown', module)
   .add('Placements', () => (
     <>
       <Dropdown
-        button={({ ref, setOpen, open }) => (
-          <Button type="button" ref={ref} onClick={() => setOpen(!open)} marginBottom="xl">
+        name="dropdown-default"
+        button={({ ref, show, hide, open }) => (
+          <Button
+            type="button"
+            ref={ref}
+            onClick={open ? hide : show}
+            marginBottom="xl"
+          >
             Default
           </Button>
         )}
       >
-        <Text color="light" fontSize="sm">Popper</Text>
+        <Text color="light" fontSize="sm">
+          Popper
+        </Text>
       </Dropdown>
       <Dropdown
+        name="dropdown-right"
         placement="right"
-        button={({ ref, setOpen, open }) => (
-          <Button type="button" ref={ref} onClick={() => setOpen(!open)} marginBottom="xl">
+        button={({ ref, show, hide, open }) => (
+          <Button
+            type="button"
+            ref={ref}
+            onClick={open ? hide : show}
+            marginBottom="xl"
+          >
             Right
           </Button>
         )}
       >
-        <Text color="light" fontSize="sm">Popper</Text>
+        <Text color="light" fontSize="sm">
+          Popper
+        </Text>
       </Dropdown>
       <Dropdown
+        name="dropdown-top"
         placement="top"
-        button={({ ref, setOpen, open }) => (
-          <Button type="button" ref={ref} onClick={() => setOpen(!open)} marginBottom="xl">
+        button={({ ref, show, hide, open }) => (
+          <Button
+            type="button"
+            ref={ref}
+            onClick={open ? hide : show}
+            marginBottom="xl"
+          >
             Top
           </Button>
         )}
       >
-        <Text color="light" fontSize="sm">Popper</Text>
+        <Text color="light" fontSize="sm">
+          Popper
+        </Text>
       </Dropdown>
       <Dropdown
+        name="dropdown-left"
         placement="left"
-        button={({ ref, setOpen, open }) => (
-          <Button type="button" ref={ref} onClick={() => { console.log('BLAH'); setOpen(!open); }} marginBottom="xl">
+        button={({ ref, show, hide, open }) => (
+          <Button
+            type="button"
+            ref={ref}
+            onClick={open ? hide : show}
+            marginBottom="xl"
+          >
             Left
           </Button>
         )}
       >
-        <Text color="light" fontSize="sm">Popper</Text>
+        <Text color="light" fontSize="sm">
+          Popper
+        </Text>
       </Dropdown>
     </>
   ));

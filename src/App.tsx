@@ -14,6 +14,8 @@ const store = configureStore();
 const App: React.FC = () => {
   return (
     <ThemeProvider theme={theme}>
+      <div id="modal-root" />
+      <div id="notifications-root" />
       <Global
         styles={css`
           body {
