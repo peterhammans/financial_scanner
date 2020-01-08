@@ -9,12 +9,13 @@ import { Responsive, Spacings } from 'src/design-system/types';
 import { Colors } from '../../design-system/types';
 import { Text } from 'src/components/Text';
 
-type Variant = 'success' | 'error' | 'warning';
+type Variant = 'success' | 'error' | 'warning' | 'info';
 
 const colorMap: Record<Variant, Colors> = {
   error: 'error',
   warning: 'warning',
-  success: 'success'
+  success: 'success',
+  info: 'info'
 };
 
 interface NotificationState {

@@ -1,4 +1,4 @@
-import { Theme } from './types';
+import { Theme, Sizes, Responsive } from './types';
 import Color from 'color';
 
 export const isMobile = (viewportWidth: number) => {
@@ -47,6 +47,67 @@ export const isDesktopUp = (viewportWidth: number) => {
   return viewportWidth >= breakpointValues.lg;
 };
 
+export const getResponsiveSize = (
+  viewportWidth: number,
+  size: Responsive<Sizes>
+) => (theme: Theme): number => {
+  const {
+    breakpoints: { values: breakpointValues }
+  } = theme;
+
+  if (typeof size === 'string') {
+    return theme.typography.sizes[size];
+  }
+
+  if (viewportWidth >= breakpointValues.sm) {
+    if (size.xl && viewportWidth >= breakpointValues.xl) {
+      return theme.typography.sizes[size.xl];
+    }
+
+    if (size.lg && viewportWidth >= breakpointValues.lg) {
+      return theme.typography.sizes[size.lg];
+    }
+
+    if (size.md && viewportWidth >= breakpointValues.md) {
+      return theme.typography.sizes[size.md];
+    }
+
+    if (size.sm) {
+      return theme.typography.sizes[size.sm];
+    }
+  }
+
+  if (viewportWidth >= breakpointValues.md) {
+    if (size.xl && viewportWidth >= breakpointValues.xl) {
+      return theme.typography.sizes[size.xl];
+    }
+
+    if (size.lg && viewportWidth >= breakpointValues.lg) {
+      return theme.typography.sizes[size.lg];
+    }
+
+    if (size.md) {
+      return theme.typography.sizes[size.md];
+    }
+  }
+
+  if (viewportWidth >= breakpointValues.lg) {
+    if (size.xl && viewportWidth >= breakpointValues.xl) {
+      return theme.typography.sizes[size.xl];
+    }
+
+    if (size.lg) {
+      return theme.typography.sizes[size.lg];
+    }
+  }
+
+  if (size.xs) {
+    return theme.typography.sizes[size.xs];
+  }
+
+  return 0;
+};
+
 export const theme: Theme = {
   breakpoints: {
     values: {
@@ -88,18 +149,10 @@ export const theme: Theme = {
     accent: '#00bed9',
     grey20: '#ccc',
     grey5: '#f2f2f2',
+    info: '#3a87ad',
     success: '#24a148',
-    success50: Color('#24a148')
-      .lighten(1.2)
-      .hex(),
     warning: '#FFB43E',
-    warning50: Color('#FFB43E')
-      .lighten(0.5)
-      .hex(),
     error: '#d82121',
-    error50: Color('#d82121')
-      .lighten(0.8)
-      .hex(),
     transparent: 'transparent'
   },
   spacings: {

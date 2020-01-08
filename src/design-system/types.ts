@@ -22,12 +22,10 @@ export type SpacingProps =
 export type Colors =
   | 'dark'
   | 'light'
+  | 'info'
   | 'success'
-  | 'success50'
   | 'warning'
-  | 'warning50'
   | 'error'
-  | 'error50'
   | 'grey20'
   | 'grey5'
   | 'accent'

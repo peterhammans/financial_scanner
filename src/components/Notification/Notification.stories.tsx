@@ -14,6 +14,9 @@ storiesOf('Notification', module)
       <Notification variant="warning" marginBottom="sm">
         Warning notification
       </Notification>
-      <Notification variant="error">Error notification</Notification>
+      <Notification variant="error" marginBottom="sm">
+        Error notification
+      </Notification>
+      <Notification variant="info">Info notification</Notification>
     </div>
   ));
