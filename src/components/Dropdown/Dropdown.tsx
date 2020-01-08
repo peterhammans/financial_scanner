@@ -112,25 +112,30 @@ class Dropdown extends React.PureComponent<DropdownProps> {
           >
             {({ placement, ref, style, arrowProps }: PopperChildrenProps) => {
               return (
-                dropdowns[name]!! && (
-                  <div
-                    ref={ref}
-                    style={style}
-                    data-placement={placement}
-                    css={styles.dropdown({
-                      backgroundColor,
-                      noShadow,
-                      padding
-                    })}
-                  >
-                    {children}
-                    <span
-                      ref={arrowProps.ref}
-                      style={arrowProps.style}
-                      css={styles.arrow({ color: backgroundColor, placement })}
-                    />
-                  </div>
-                )
+                <>
+                  {dropdowns[name]!! && (
+                    <div
+                      ref={ref}
+                      style={style}
+                      data-placement={placement}
+                      css={styles.dropdown({
+                        backgroundColor,
+                        noShadow,
+                        padding
+                      })}
+                    >
+                      {children}
+                      <span
+                        ref={arrowProps.ref}
+                        style={arrowProps.style}
+                        css={styles.arrow({
+                          color: backgroundColor,
+                          placement
+                        })}
+                      />
+                    </div>
+                  )}
+                </>
               );
             }}
           </DropdownPopper>
