@@ -6,11 +6,18 @@ import { Theme } from 'src/design-system/types';
 type StyleProps = Pick<
   IconProps,
   'marginRight' | 'marginBottom' | 'marginLeft'
->;
+> & { clickable: boolean };
 
-const icon = ({ marginRight, marginBottom, marginLeft }: StyleProps) => (
-  theme: Theme
-) => css`
+const icon = ({
+  marginRight,
+  marginBottom,
+  marginLeft,
+  clickable
+}: StyleProps) => (theme: Theme) => css`
+  ${clickable &&
+    css`
+      cursor: pointer;
+    `}
   ${mixins.spacings({
     marginRight,
     marginBottom,

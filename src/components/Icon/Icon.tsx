@@ -22,6 +22,7 @@ interface RequiredProps {
 interface DefaultProps {
   color: Colors;
   size: Responsive<Sizes>;
+  onClick?(): void;
   marginLeft?: Responsive<Spacings>;
   marginRight?: Responsive<Spacings>;
   marginBottom?: Responsive<Spacings>;
@@ -36,19 +37,26 @@ const Icon: React.FC<IconProps> & { defaultProps: DefaultProps } = ({
   marginLeft,
   marginRight,
   marginBottom,
-  viewportWidth
+  viewportWidth,
+  onClick
 }) => {
   const styleProps = {
     marginLeft,
     marginRight,
-    marginBottom
+    marginBottom,
+    clickable: !!onClick
   };
   const theme = useTheme<Theme>();
   const sizePx = `${getResponsiveSize(viewportWidth, size)(theme)}px`;
+  const iconProps = {
+    ...(onClick && { onClick })
+  };
 
   return (
-    <IconContext.Provider value={{ color, size: sizePx }}>
-      <span css={styles.icon(styleProps)}>{render()}</span>
+    <IconContext.Provider value={{ color: theme.colors[color], size: sizePx }}>
+      <span css={styles.icon(styleProps)} {...iconProps}>
+        {render()}
+      </span>
     </IconContext.Provider>
   );
 };

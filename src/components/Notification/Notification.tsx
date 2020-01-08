@@ -3,11 +3,12 @@ import * as React from 'react';
 import ReactDOM from 'react-dom';
 /** @jsx jsx */
 import { jsx } from '@emotion/core';
-
+import { FaTimes } from 'react-icons/fa';
 import * as styles from './Notification.styles';
-import { Responsive, Spacings } from 'src/design-system/types';
-import { Colors } from '../../design-system/types';
+import { Responsive, Spacings, Colors } from 'src/design-system/types';
 import { Text } from 'src/components/Text';
+import { Icon } from '../Icon';
+import { Box } from '../Box';
 
 type Variant = 'success' | 'error' | 'warning' | 'info';
 
@@ -28,10 +29,9 @@ interface RequiredProps {
 }
 
 interface DefaultProps {
-  dismissable: boolean;
   padding: Responsive<Spacings>;
   marginBottom?: Responsive<Spacings>;
-  onClose?(): void;
+  onDismiss?(): void;
 }
 
 export type NotificationProps = RequiredProps & DefaultProps;
@@ -45,7 +45,6 @@ class Notification extends React.Component<
   };
 
   static defaultProps: DefaultProps = {
-    dismissable: true,
     padding: 'sm'
   };
 
@@ -83,13 +82,7 @@ class Notification extends React.Component<
   };
 
   render() {
-    const {
-      dismissable,
-      children,
-      variant,
-      padding,
-      marginBottom
-    } = this.props;
+    const { onDismiss, children, variant, padding, marginBottom } = this.props;
     const styleProps = {
       variant,
       padding,
@@ -98,7 +91,18 @@ class Notification extends React.Component<
 
     return ReactDOM.createPortal(
       <div css={styles.notification(styleProps)}>
-        <Text color={colorMap[variant]}>{children}</Text>
+        <Box>
+          <Text color={colorMap[variant]}>{children}</Text>
+          {onDismiss && (
+            <Box grow={0} width="auto">
+              <Icon
+                color={colorMap[variant]}
+                render={() => <FaTimes />}
+                onClick={onDismiss}
+              />
+            </Box>
+          )}
+        </Box>
       </div>,
       this.el
     );
