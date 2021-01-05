@@ -34,7 +34,7 @@
     "@types/react-router-dom": "4.3.5",
     "@types/redux-mock-store": "1.0.1",
     "@types/yup": "0.26.23",
-    "axios": "0.19.0",
+    "axios": "0.21.1",
     "classnames": "2.2.6",
     "color": "^3.1.2",
     "connected-react-router": "^6.6.1",
